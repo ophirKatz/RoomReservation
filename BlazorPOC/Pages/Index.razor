@@ -1,0 +1,12 @@
+﻿@using BlazorPOC.Services
+
+@page "/"
+@inject INameService NameService
+
+<h1>Hello, @Name!</h1>
+
+Welcome to your new app.
+
+@code {
+    public string Name => NameService.GetNameAsync().GetAwaiter().GetResult();
+}
