@@ -1,8 +1,8 @@
-﻿using Shared.Data;
+﻿using Common.Data;
 using System;
 using System.Threading.Tasks;
 
-namespace Shared.Services
+namespace Server.Services
 {
     public interface IWeatherForecastService
     {

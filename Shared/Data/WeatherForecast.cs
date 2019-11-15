@@ -1,6 +1,6 @@
 using System;
 
-namespace Shared.Data
+namespace Common.Data
 {
     public class WeatherForecast
     {

@@ -5,19 +5,13 @@ namespace Server
 {
     public class Bootstrapper
     {
-        public Bootstrapper()
+        public Bootstrapper(ContainerBuilder builder)
         {
-            var builder = new ContainerBuilder();
-
-            #region Load Modules
+            #region Register Modules
 
             builder.RegisterModule<ServiceModule>();
 
             #endregion
-
-            var container = builder.Build();
         }
-
-        
     }
 }

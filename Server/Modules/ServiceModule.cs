@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Server.Services;
-using Shared.Services;
 
 namespace Server.Modules
 {

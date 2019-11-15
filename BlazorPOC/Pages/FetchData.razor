@@ -1,7 +1,6 @@
 ﻿@page "/fetchdata"
 
-@using BlazorPOC.Data
-@inject WeatherForecastService ForecastService
+@using Common.Data
 
 <h1>Weather forecast</h1>
 
@@ -39,8 +38,9 @@ else
 @code {
     WeatherForecast[] forecasts;
 
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
+    // TODO : call to server service via server proxy...
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    //}
 }
