@@ -1,0 +1,2 @@
+1. Showcase JSInterop capabilities
+2. Add logging

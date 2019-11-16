@@ -1,0 +1,1 @@
+A POC project for Blazor with .NET Core.
