@@ -31,6 +31,7 @@ namespace Server.Server
         // here if you need to resolve things from the container.
         public void Configure(IApplicationBuilder app)
         {
+            app.UseRouting();
             app.UseEndpoints(routeBuilder =>
             {
                 routeBuilder.MapHub<WeatherForecastHub>("weatherHub");

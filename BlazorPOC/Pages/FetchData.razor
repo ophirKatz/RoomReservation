@@ -1,12 +1,18 @@
 ﻿@page "/fetchdata"
 
+@using Client
 @using Common.Data
+@using Common.Data.EventArgs
+@using Common.Communication
+@inject IWeatherForecastModel WeatherForecastModel
+@inject IServerProxy ServerProxy
+@inject IWeatherClient WeatherClient
 
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
 
-@if (forecasts == null)
+@if (Forecasts == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -22,7 +28,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var forecast in Forecasts)
             {
                 <tr>
                     <td>@forecast.Date.ToShortDateString()</td>
@@ -36,11 +42,19 @@ else
 }
 
 @code {
-    WeatherForecast[] forecasts;
+    private WeatherForecast[] Forecasts { get; set; }
 
     // TODO : call to server service via server proxy...
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        // TODO : Register to event that pushes the answer
+        WeatherForecastModel.WeatherForecastsChanged += OnForecastsReceived;
+        //TODO: await a call to hub method(using a proxy)
+        await ServerProxy.GetForecastAsync(DateTime.Now);
+    }
+
+    private void OnForecastsReceived(object caller, WeatherForecastEventArgs args)
+    {
+        Forecasts = args.Forecasts;
+    }
 }
