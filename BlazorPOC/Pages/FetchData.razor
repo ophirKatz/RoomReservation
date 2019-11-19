@@ -47,9 +47,7 @@ else
     // TODO : call to server service via server proxy...
     protected override async Task OnInitializedAsync()
     {
-        // TODO : Register to event that pushes the answer
         WeatherForecastModel.WeatherForecastsChanged += OnForecastsReceived;
-        //TODO: await a call to hub method(using a proxy)
         await ServerProxy.GetForecastAsync(DateTime.Now);
     }
 

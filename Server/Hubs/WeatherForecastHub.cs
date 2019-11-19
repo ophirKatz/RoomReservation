@@ -23,6 +23,15 @@ namespace Server.Hubs
             await Clients.Caller.ReceiveWeatherForecast(forecast);
         }
 
+        public async Task SetWeatherServerName(string name, int index)
+        {
+            var serverName = await ClientRequestHandler
+                .SetWeatherServerName(name, index)
+                .ConfigureAwait(false);
+
+            await Clients.All.ReceiveWeatherServerName("oldName", serverName);
+        }
+
         public IClientRequestHandler ClientRequestHandler { get; }
     }
 }

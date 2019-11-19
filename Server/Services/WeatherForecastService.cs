@@ -22,5 +22,10 @@ namespace Server.Services
                 Summary = Summaries[rng.Next(Summaries.Length)]
             }).ToArray());
         }
+
+        public Task<string> SetWeatherServerName(string name, int index)
+        {
+            return Task.FromResult(name + index.ToString());
+        }
     }
 }

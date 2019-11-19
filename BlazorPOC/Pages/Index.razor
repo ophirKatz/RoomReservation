@@ -1,8 +1,29 @@
 ﻿@page "/"
+@using Client
+@using Common.Data
+@inject IServerProxy ServerProxy
+@inject IConnectedServerModel connectedServerModel
 
-<h1>Hello, World!</h1>
+<table class="table">
+    <tbody>
+        <tr>
+            <td>
+                <h1>Hello, World!</h1>
 
-Welcome to your new app.
+                Welcome to your new app.
+            </td>
+            <td>
+                <WeatherForecastServer ConnectedServerModel="connectedServerModel" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 
 @code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(2000);
+        await ServerProxy.SetWeatherServerName("Ophir", 123);
+    }
 }

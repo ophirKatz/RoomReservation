@@ -15,7 +15,15 @@ namespace BlazorPOC.Client
 
         public async Task GetForecastAsync(DateTime startDate)
         {
-            await Connection.InvokeAsync<Task>(nameof(IWeatherForecastHub.GetForecastAsync), startDate);
+            await Connection.InvokeAsync<Task>(nameof(IWeatherForecastHub.GetForecastAsync),
+                startDate);
+        }
+
+        public async Task SetWeatherServerName(string name, int index)
+        {
+            await Connection.InvokeAsync<Task>(nameof(IWeatherForecastHub.SetWeatherServerName),
+                name,
+                index);
         }
 
         private HubConnection Connection { get; set; }

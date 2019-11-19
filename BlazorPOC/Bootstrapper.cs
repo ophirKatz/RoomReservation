@@ -17,6 +17,7 @@ namespace BlazorPOC
             builder.RegisterModule<ConfigurationModule>();
 
             builder.RegisterType<WeatherForecastModel>().As<IWeatherForecastModel>().SingleInstance();
+            builder.RegisterType<ConnectedServerModel>().As<IConnectedServerModel>().SingleInstance();
 
             #region Register Client
 
@@ -29,14 +30,11 @@ namespace BlazorPOC
             #endregion
         }
 
-        private HubConnection BuildConnection()
-        {
-            // TODO : Configure URL
-            return new HubConnectionBuilder()
-                .WithAutomaticReconnect()
-                .WithUrl($"http://localhost:8080/{HubName}")
-                .Build();
-        }
+        // TODO : Configure URL
+        private HubConnection BuildConnection() => new HubConnectionBuilder()
+            .WithAutomaticReconnect()
+            .WithUrl($"http://localhost:8080/{HubName}")
+            .Build();
 
         // TODO : Configure
         private const string HubName = "weatherHub";

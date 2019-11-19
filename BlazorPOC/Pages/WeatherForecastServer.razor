@@ -1,0 +1,16 @@
+﻿@using Common.Data
+
+<h3>Weather Forecast Server</h3>
+@if (ConnectedServerModel.ServerName == null)
+{
+    <h4>Connecting...</h4>
+}
+else
+{
+    <p>Connected to <a href="#" class="tooltip" data-toggle="tooltip" title="Some text">@ConnectedServerModel.ServerName</a> weather server</p>
+}
+
+@code {
+    [Parameter]
+    public IConnectedServerModel ConnectedServerModel { get; set; }
+}

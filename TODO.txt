@@ -1,2 +1,5 @@
 1. Showcase JSInterop capabilities
 2. Add logging
+3. Testing blazor components
+4. Show reusability of components
+5. Remove bootstrappers, more registrations to startup classes
