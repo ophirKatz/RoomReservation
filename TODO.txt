@@ -2,4 +2,5 @@
 2. Add logging
 3. Testing blazor components
 4. Show reusability of components
-5. Remove bootstrappers, more registrations to startup classes
+5. Remove bootstrappers, move registrations to startup classes
+6. Integrate styling (fa, bootstrap/bulma)

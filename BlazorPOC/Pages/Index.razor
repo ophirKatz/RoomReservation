@@ -12,8 +12,21 @@
 
                 Welcome to your new app.
             </td>
-            <td>
+            <td class="fa-align-left">
                 <WeatherForecastServer ConnectedServerModel="connectedServerModel" />
+            </td>
+            <td>
+                <BlazorPOC.Components.GenericList Elements=@NumArray>
+                    <ContentTemplate>
+                        @foreach (var i in NumArray)
+                        {
+                            <div>
+                                <button class="alert-success">Number: @i</button>
+                            </div>
+                            <div class="fa-circle"></div>
+                        }
+                    </ContentTemplate>
+                </BlazorPOC.Components.GenericList>
             </td>
         </tr>
     </tbody>
@@ -26,4 +39,6 @@
         await Task.Delay(2000);
         await ServerProxy.SetWeatherServerName("Ophir", 123);
     }
+
+    private IEnumerable<int> NumArray => new[] { 1, 2, 3, 4, 5 };
 }

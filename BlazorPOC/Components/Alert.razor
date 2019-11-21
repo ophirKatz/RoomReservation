@@ -1,0 +1,38 @@
+﻿@using Data
+@using EnumsNET
+
+@switch (Type)
+{
+    case AlertType.Error:
+        <div class="alert alert-danger">
+            <h4><i class="icon fa fa-bug"></i> @Type.GetName() </h4>
+            @Message
+        </div>
+        break;
+    case AlertType.Warning:
+        <div class="alert alert-warning">
+            <h4><i class="icon fa fa-exclamation-triangle"></i> @Type.GetName() </h4>
+            @Message
+        </div>
+        break;
+    case AlertType.Success:
+        <div class="alert alert-success">
+            <h4><i class="icon fa fa-thumbs-up"></i> @Type.GetName() </h4>
+            @Message
+        </div>
+        break;
+    default:
+        <div class="alert alert-info">
+            <h4><i class="icon fa fa-info"></i> @Type.GetName() </h4>
+            @Message
+        </div>
+        break;
+}
+
+@code{
+    [Parameter]
+    public AlertType Type { get; set; }
+
+    [Parameter]
+    public string Message { get; set; }
+}

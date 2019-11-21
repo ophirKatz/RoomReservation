@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <environment include="Development">
+        @*<link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />*@
+    </environment>
+    <environment exclude="Development">
+        @*<link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />*@
+    </environment>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

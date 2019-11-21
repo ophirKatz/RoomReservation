@@ -1,0 +1,27 @@
+﻿@using Data
+
+@typeparam TElement
+
+@if (Elements == null)
+{
+    <div>PageLoading Loading...</div>
+    <PageLoading />
+}
+else if (!Elements.Any())
+{
+    <div>Alert</div>
+    <Alert Type=AlertType.Warning Message="Records not found..." />
+}
+else
+{
+    <div>ComponentTemplate</div>
+    @ContentTemplate
+}
+
+@code{
+    [Parameter]
+    public IEnumerable<TElement> Elements { get; set; }
+
+    [Parameter]
+    public RenderFragment ContentTemplate { get; set; }
+}
