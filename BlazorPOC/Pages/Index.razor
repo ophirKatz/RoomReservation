@@ -21,7 +21,7 @@
                         @foreach (var i in NumArray)
                         {
                             <div>
-                                <button class="alert-success">Number: @i</button>
+                                <button class="btn btn-primary">Number: @i</button>
                             </div>
                             <div class="fa-circle"></div>
                         }
@@ -36,9 +36,10 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(2000);
+        await Task.Delay(2000)
+            .ContinueWith(_ => NumArray = new[] { 1, 2, 3, 4, 5 });
         await ServerProxy.SetWeatherServerName("Ophir", 123);
     }
 
-    private IEnumerable<int> NumArray => new[] { 1, 2, 3, 4, 5 };
+    private IEnumerable<int> NumArray { get; set; }
 }
