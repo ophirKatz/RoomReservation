@@ -3,14 +3,26 @@
 @using Common.Data
 @inject IServerProxy ServerProxy
 @inject IConnectedServerModel connectedServerModel
+@inject IToastService ToastService
 
 <table class="table">
     <tbody>
         <tr>
             <td>
+                <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <h1>Hello, World!</h1>
 
                 Welcome to your new app.
+                <BlazorPOC.Components.Alert Type=@Data.AlertType.Error />
+                <BlazorPOC.Components.Alert Type=@Data.AlertType.Info />
+                <BlazorPOC.Components.Alert Type=@Data.AlertType.Success />
+                <BlazorPOC.Components.Alert Type=@Data.AlertType.Warning />
+                <BlazorPOC.Components.TimedToast Message="Hello"/>
+                <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
             </td>
             <td class="fa-align-left">
                 <WeatherForecastServer ConnectedServerModel="connectedServerModel" />

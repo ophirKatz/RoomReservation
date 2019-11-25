@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Shared\Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 </Project>

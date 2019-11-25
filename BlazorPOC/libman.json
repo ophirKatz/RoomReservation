@@ -13,7 +13,13 @@
     {
       "provider": "cdnjs",
       "library": "font-awesome@5.11.2",
-      "destination": "wwwroot/lib/font-awesome/"
+      "destination": "wwwroot/lib/font-awesome/",
+      "files": [
+        "css/fontawesome.min.css",
+        "css/fontawesome.css",
+        "js/fontawesome.min.js",
+        "js/fontawesome.js"
+      ]
     }
   ]
 }

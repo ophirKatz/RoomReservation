@@ -1,0 +1,12 @@
+﻿@inject IToastService ToastService
+
+@code {
+    [Parameter]
+    public string Message { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(2000);
+        ToastService.ShowSuccess($"Timed Toast: {Message}");
+    }
+}
