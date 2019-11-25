@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Server.Hubs;
+using Server.Modules;
 
 namespace Server.Server
 {
@@ -23,7 +24,18 @@ namespace Server.Server
         // Don't build the container; that gets done for you by the factory.
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            new Bootstrapper(builder);
+            #region Register Modules
+
+            builder.RegisterModule<ServiceModule>();
+
+            #endregion
+
+            #region Register Server
+
+            builder.RegisterType<WeatherForecastHub>().AsSelf();
+            builder.RegisterType<ClientRequestHandler>().As<IClientRequestHandler>().SingleInstance();
+
+            #endregion
         }
 
         // Configure is where you add middleware. This is called after

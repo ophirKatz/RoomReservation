@@ -1,6 +1,14 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Blazored.Toast;
+using BlazorPOC.Client;
+using BlazorPOC.Extensions;
+using BlazorPOC.Modules;
+using Common.Communication;
+using Common.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -51,5 +59,38 @@ namespace BlazorPOC
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
+
+        #region Private Members
+
+        public static IServiceProviderFactory<ContainerBuilder> ServiceProviderFactory = new AutofacServiceProviderFactory(cb => RegisterDependencies(cb));
+
+        private static void RegisterDependencies(ContainerBuilder builder)
+        {
+            builder.RegisterModule<ConfigurationModule>();
+
+            builder.RegisterType<WeatherForecastModel>().As<IWeatherForecastModel>().SingleInstance();
+            builder.RegisterType<ConnectedServerModel>().As<IConnectedServerModel>().SingleInstance();
+
+            #region Register Client
+
+            var connection = BuildConnection();
+            builder.RegisterInstance(new ServerProxy(connection)).As<IServerProxy>();
+            builder.RegisterType<WeatherClient>().As<IWeatherClient>()
+                .SingleInstance()
+                .OnActivated(weatherClient => connection.ConfigureClient<IWeatherClient>(weatherClient.Instance));
+
+            #endregion
+        }
+
+        // TODO : Configure URL
+        private static HubConnection BuildConnection() => new HubConnectionBuilder()
+            .WithAutomaticReconnect()
+            .WithUrl($"http://localhost:8080/{HubName}")
+            .Build();
+
+        // TODO : Configure
+        private const string HubName = "weatherHub";
+
+        #endregion
     }
 }
