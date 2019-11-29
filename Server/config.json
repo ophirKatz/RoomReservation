@@ -1,5 +1,12 @@
 {
   "ServerConfiguration": {
     "ServerAddress": "http://localhost:8080"
+  },
+  "DatabaseConfiguration": {
+    "ServerAddress": "localhost",
+    "ServerPort": 9000,
+    "DbName": "RoomRes",
+    "Username": "OphirKatz",
+    "Password": "Aa123456"
   }
 }

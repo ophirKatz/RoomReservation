@@ -27,6 +27,7 @@ namespace Server.Server
             #region Register Modules
 
             builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule<ConfigurationModule>();
 
             #endregion
 
