@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Server.Services;
+using Server.Services.DataAccess;
 
 namespace Server.Modules
 {

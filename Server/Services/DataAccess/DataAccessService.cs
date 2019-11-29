@@ -1,15 +1,20 @@
 ﻿using DAL;
+using Serilog;
 using Server.Configuration;
 
-namespace Server.Services
+namespace Server.Services.DataAccess
 {
     public class DataAccessService : IDataAccessService
     {
         #region Constructor
 
-        public DataAccessService(IDatabaseConfiguration databaseConfiguration)
+        public DataAccessService(ILogger logger,
+            IDatabaseConfiguration databaseConfiguration)
         {
+            Logger = logger;
             DatabaseConfiguration = databaseConfiguration;
+
+            Logger.DatabaseConfigured(DatabaseConfiguration);
         }
 
         #endregion
@@ -25,7 +30,9 @@ namespace Server.Services
 
         #region Private Members
 
+        private ILogger Logger { get; }
         private IDatabaseConfiguration DatabaseConfiguration { get; set; }
+
         private ServerDbContext DbContextInstance
         {
             get

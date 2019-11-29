@@ -1,4 +1,4 @@
-﻿namespace Server.Services
+﻿namespace Server.Services.DataAccess
 {
     public interface IDataAccessService
     {
