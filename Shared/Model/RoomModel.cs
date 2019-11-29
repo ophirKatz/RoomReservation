@@ -17,11 +17,15 @@ namespace Common.Model
 
         #endregion
 
+        #region Implementation of IRoomModel
+
         public int Id { get; set; }
         public RoomLocation Location { get; set; }
         public int Capacity { get; set; }
         public bool HasSpeaker { get; set; }
         public bool HasComputer { get; set; }
+
+        #endregion
 
         public override string ToString()
         {
