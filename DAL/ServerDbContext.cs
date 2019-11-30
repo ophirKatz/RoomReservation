@@ -29,9 +29,9 @@ namespace DAL
 
         public void ClearDb(out int deletedRooms, out int deletedUsers, out int deletedReservations)
         {
-            deletedRooms = Database.ExecuteSqlInterpolated($"delete from {nameof(Rooms)}");
-            deletedUsers = Database.ExecuteSqlInterpolated($"delete from {nameof(Users)}");
-            deletedReservations = Database.ExecuteSqlInterpolated($"delete from {nameof(RoomReservations)}");
+            deletedReservations = Database.ExecuteSqlRaw($"delete from {nameof(RoomReservations)}");
+            deletedRooms = Database.ExecuteSqlRaw($"delete from {nameof(Rooms)}");
+            deletedUsers = Database.ExecuteSqlRaw($"delete from {nameof(Users)}");
         }
 
         #region Db Configuration

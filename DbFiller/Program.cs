@@ -19,12 +19,7 @@ namespace DbFiller
             var container = RegisterDependencies(config);
             
             var fillerFactory = container.Resolve<Func<string, DatabaseFiller>>();
-            fillerFactory(dataFileName).FillDb();
-
-            var logger = container.Resolve<ILogger>();
-
-            logger.Information("Please press any key to finish the DbFiller process...");
-            Console.ReadKey();
+            fillerFactory(dataFileName).Execute();
         }
 
         private static IContainer RegisterDependencies(IConfigurationRoot config)
@@ -36,6 +31,7 @@ namespace DbFiller
 
             var dbConfig = config.GetSection(nameof(DatabaseConfiguration))
                   .Get<DatabaseConfiguration>();
+            builder.RegisterInstance(dbConfig).As<IDatabaseConfiguration>();
 
             builder.Register<ILogger>((c, p) =>
             {
