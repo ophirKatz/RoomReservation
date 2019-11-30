@@ -11,5 +11,10 @@ namespace DAL.DbEntities
         public UserClearance RequiredClearance { get; set; }
         public virtual Room Room { get; set; }
         public virtual User Initiator { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}, {nameof(Room)}: {Room.Id}, {nameof(Initiator)}: {Initiator.Id}";
+        }
     }
 }

@@ -8,26 +8,18 @@ namespace DbFiller
     {
         static void Main(string[] args)
         {
-            Configure();
-            new DatabaseFiller(new JsonDataReader(DataFileName), DbConfig)
-                .FillDb();
-            Console.ReadKey();
-        }
-
-        public static IDatabaseConfiguration Configure()
-        {
             var config = new ConfigurationBuilder()
                 .AddJsonFile("config.json")
                 .Build();
 
-            DataFileName = config["Reader:DataFileName"];
-            DbConfig = config.GetSection(nameof(DatabaseConfiguration))
-                .Get<DatabaseConfiguration>();
+            var dataFileName = config["Reader:DataFileName"];
+            var dbConfig = config.GetSection(nameof(DatabaseConfiguration))
+                  .Get<DatabaseConfiguration>();
 
-            return DbConfig;
+            new DatabaseFiller(new JsonDataReader(dataFileName), dbConfig)
+                .FillDb();
+
+            Console.ReadKey();
         }
-
-        private static string DataFileName;
-        private static IDatabaseConfiguration DbConfig;
     }
 }

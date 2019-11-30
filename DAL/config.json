@@ -1,7 +1,4 @@
 {
-  "Reader": {
-    "DataFileName": "RoomReservationsData.json"
-  },
   "DatabaseConfiguration": {
     "ServerAddress": ".\\SQLEXPRESS", // this is the server name, not ip.
     "ServerPort": 9000, // as of now, this is not used

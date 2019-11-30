@@ -40,6 +40,7 @@ namespace Server.Services.DataAccess
                 if (DatabaseConfiguration == null)
                     return null;
 
+                // return new ServerDbContextFactory
                 return new ServerDbContext(DatabaseConfiguration.ServerAddress,
                     DatabaseConfiguration.ServerPort,
                     DatabaseConfiguration.DbName,

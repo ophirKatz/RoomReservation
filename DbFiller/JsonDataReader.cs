@@ -12,7 +12,7 @@ namespace DbFiller
     {
         #region Constructor
 
-        // Add logging
+        // TODO : Add logging
         public JsonDataReader(string dataFileName)
         {
             DataFileRoot = new ConfigurationBuilder()
@@ -51,15 +51,15 @@ namespace DbFiller
 
             #region Read Sections
 
-            RoomSections = DataFileRoot.GetSection(nameof(RoomSections))
+            RoomSections = DataFileRoot.GetSection(nameof(Rooms))
                 .GetChildren()
                 .ToDictionary(roomSection => roomSection["Id"]);
 
-            UserSections  = DataFileRoot.GetSection(nameof(UserSections))
+            UserSections  = DataFileRoot.GetSection(nameof(Users))
                 .GetChildren()
                 .ToDictionary(userSection => userSection["Id"]);
 
-            ReservationSections = DataFileRoot.GetSection(nameof(ReservationSections))
+            ReservationSections = DataFileRoot.GetSection(nameof(Reservations))
                 .GetChildren()
                 .ToDictionary(reservationSection => reservationSection["Id"]);
 
@@ -69,11 +69,14 @@ namespace DbFiller
 
             Rooms = RoomSections.Values.Select(section => section.Get<Room>()).ToList();
 
-            Users = UserSections.Values.Select(userSection => new User
-            {
-                Id = int.Parse(userSection["Id"]),
-                Username = userSection["Username"],
-                UserClearance = Enums.Parse<UserClearance>(userSection["UserClearnace"])
+            Users = UserSections.Values.Select(userSection => {
+                var newUser = new User
+                {
+                    Id = int.Parse(userSection["Id"]),
+                    Username = userSection["Username"],
+                    UserClearance = Enums.Parse<UserClearance>(userSection["UserClearance"])
+                };
+                return newUser;
             }).ToList();
 
             Reservations = ReservationSections.Values.Select(reservationSection => new Reservation
