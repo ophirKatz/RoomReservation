@@ -12,11 +12,6 @@ namespace DAL
         {
         }
 
-        public ServerDbContext(string serverAddress, int serverPort, string dbName, string username, string password)
-        {
-            SetConnectionString(serverAddress, serverPort, dbName, username, password);
-        }
-
         #endregion
 
         #region Db Collections
@@ -44,6 +39,7 @@ namespace DAL
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Capacity).IsRequired();
+                entity.HasIndex(e => e.Description).IsUnique();
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -63,14 +59,6 @@ namespace DAL
             });
         }
 
-        private void SetConnectionString(string serverAddress, int serverPort, string dbName, string username, string password)
-        {
-            ConnectionString = string.Format(ConnectionStringFormat, serverAddress, serverPort.ToString(), dbName, username, password);
-        }
-
         #endregion
-
-        private const string ConnectionStringFormat = "Server={0}; Port={1}; Database={2}; User Id={3}; Password={4};";
-        private string ConnectionString { get; set; }
     }
 }

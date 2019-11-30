@@ -1,9 +1,13 @@
 ﻿using DAL;
 using DAL.Configuration;
+using DAL.DbEntities;
+using Microsoft.EntityFrameworkCore;
 using Polly;
 using Polly.Retry;
 using Serilog;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Server.Services.DataAccess
 {
@@ -27,10 +31,68 @@ namespace Server.Services.DataAccess
 
         #region Implementation of IDataAccessService
 
-        /// <summary>
-        /// Use db context as such:
-        /// using (var context = DbContextInstance)
-        /// </summary>
+        public bool TryGetRoomByDescription(string description, out Room room)
+        {
+            using (var context = DbContextInstance)
+            {
+                room = context.Rooms
+                    .FirstOrDefault(room => room.Description.Equals(description));
+                if (room == null)
+                {
+                    Logger.Error($"Room with description {description} was not found", description);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool TryGetUserByName(string username, out User user)
+        {
+            using (var context = DbContextInstance)
+            {
+                user = context.Users
+                    .Include(user => user.Reservations)
+                    .FirstOrDefault(user => user.Username.Equals(username));
+                if (user == null)
+                {
+                    Logger.Error($"User with username {username} was not found", username);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public List<Reservation> GetUserReservations(string username)
+        {
+            if (!TryGetUserByName(username, out var user)) return null;
+            return user.Reservations;
+        }
+
+        public List<Reservation> GetReservationsForRoom(string description)
+        {
+            using (var context = DbContextInstance)
+            {
+                return context.RoomReservations
+                    .Include(reservation => reservation.Initiator)
+                    .Include(reservation => reservation.Room)
+                    .Where(reservation => reservation.Room.Description.Equals(description))
+                    .ToList();
+            }
+        }
+
+        public List<Room> GetAllRooms()
+        {
+            using var context = DbContextInstance;
+            return context.Rooms.ToList();
+        }
+
+        public List<User> GetAllUsers()
+        {
+            using var context = DbContextInstance;
+            return context.Users.ToList();
+        }
 
         #endregion
 

@@ -1,7 +1,16 @@
-﻿namespace Server.Services.DataAccess
+﻿using Common.Model;
+using DAL.DbEntities;
+using System.Collections.Generic;
+
+namespace Server.Services.DataAccess
 {
     public interface IDataAccessService
     {
-        // Fill here the service methods that the server will use against the db
+        bool TryGetRoomByDescription(string description, out Room room);
+        bool TryGetUserByName(string username, out User user);
+        List<Reservation> GetUserReservations(string username);
+        List<Reservation> GetReservationsForRoom(string description);
+        List<Room> GetAllRooms();
+        List<User> GetAllUsers();
     }
 }

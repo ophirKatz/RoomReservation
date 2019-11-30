@@ -8,11 +8,12 @@ namespace Common.Model
     {
         #region Constructor
 
-        public ReservationModel(DateTime startTime, DateTime endTime, IRoomModel room, UserClearance requiredClearance)
+        public ReservationModel(DateTime startTime, DateTime endTime, IRoomModel room, IUserModel userModel, UserClearance requiredClearance)
         {
             StartTime = startTime;
             EndTime = endTime;
             Room = room;
+            Initiator = userModel;
             RequiredClearance = requiredClearance;
         }
 
@@ -24,13 +25,14 @@ namespace Common.Model
         public DateTime EndTime { get; set; }
         public TimeSpan TimeSpan => EndTime.Subtract(StartTime);
         public IRoomModel Room { get; set; }
+        public IUserModel Initiator { get; set; }
         public UserClearance RequiredClearance { get; set; }
 
         #endregion
 
         public override string ToString()
         {
-            return $"{nameof(StartTime)}: {StartTime}, {nameof(EndTime)}: {EndTime}, {nameof(Room)}: {Room}, {nameof(RequiredClearance)}: {RequiredClearance.GetName()}";
+            return $"{nameof(StartTime)}: {StartTime}, {nameof(EndTime)}: {EndTime}, {nameof(Room)}: {Room}, {nameof(Initiator)}: {Initiator}, {nameof(RequiredClearance)}: {RequiredClearance.GetName()}";
         }
     }
 }

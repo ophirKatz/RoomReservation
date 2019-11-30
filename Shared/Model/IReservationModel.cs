@@ -9,6 +9,7 @@ namespace Common.Model
         DateTime EndTime { get; set; }
         TimeSpan TimeSpan { get; }
         IRoomModel Room { get; set; }
+        IUserModel Initiator { get; set; }
         UserClearance RequiredClearance { get; set; }
     }
 }

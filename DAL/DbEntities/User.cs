@@ -11,7 +11,7 @@ namespace DAL.DbEntities
         public int Id { get; set; }
         public string Username { get; set; }
         public UserClearance UserClearance { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual List<Reservation> Reservations { get; set; }
 
         public override string ToString()
         {
