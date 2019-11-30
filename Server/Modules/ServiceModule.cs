@@ -10,10 +10,6 @@ namespace Server.Modules
         {
             builder.RegisterType<DataAccessService>()
                 .As<IDataAccessService>();
-
-            builder.RegisterType<WeatherForecastService>()
-                .As<IWeatherForecastService>()
-                .SingleInstance();
         }
     }
 }

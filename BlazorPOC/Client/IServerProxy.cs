@@ -1,11 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace BlazorPOC.Client
+﻿namespace BlazorPOC.Client
 {
     public interface IServerProxy
     {
-        Task GetForecastAsync(DateTime startDate);
-        Task SetWeatherServerName(string name, int index);
+        // TODO : Add all server proxy calls - these call to the hub methods via HubConnection object
     }
 }

@@ -12,4 +12,8 @@
     <PackageReference Include="Polly" Version="7.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\EventArgs\" />
+  </ItemGroup>
+
 </Project>

@@ -2,7 +2,6 @@
 @using Client
 @using Common.Data
 @inject IServerProxy ServerProxy
-@inject IConnectedServerModel connectedServerModel
 @inject IToastService ToastService
 
 <table class="table">
@@ -23,9 +22,6 @@
                 <BlazorPOC.Components.Alert Type=@Data.AlertType.Warning />
                 <BlazorPOC.Components.TimedToast Message="Hello"/>
                 <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
-            </td>
-            <td class="fa-align-left">
-                <WeatherForecastServer ConnectedServerModel="connectedServerModel" />
             </td>
             <td>
                 <BlazorPOC.Components.GenericList Elements=@NumArray>
@@ -50,7 +46,6 @@
     {
         await Task.Delay(2000)
             .ContinueWith(_ => NumArray = new[] { 1, 2, 3, 4, 5 });
-        await ServerProxy.SetWeatherServerName("Ophir", 123);
     }
 
     private IEnumerable<int> NumArray { get; set; }

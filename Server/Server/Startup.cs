@@ -46,7 +46,7 @@ namespace Server.Server
 
             #region Register Server
 
-            builder.RegisterType<WeatherForecastHub>().AsSelf();
+            builder.RegisterType<RoomReservationHub>().AsSelf();
             builder.RegisterType<ClientRequestHandler>().As<IClientRequestHandler>().SingleInstance();
 
             #endregion
@@ -60,7 +60,7 @@ namespace Server.Server
             app.UseRouting();
             app.UseEndpoints(routeBuilder =>
             {
-                routeBuilder.MapHub<WeatherForecastHub>("weatherHub");
+                routeBuilder.MapHub<RoomReservationHub>(nameof(RoomReservationHub));
             });
         }
     }

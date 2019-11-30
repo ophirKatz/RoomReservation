@@ -6,9 +6,8 @@ namespace Common.Model
     {
         #region Constructor(s)
 
-        public RoomModel(int id, RoomLocation location, int capacity, bool hasSpeaker, bool hasComputer)
+        public RoomModel(RoomLocation location, int capacity, bool hasSpeaker, bool hasComputer)
         {
-            Id = id;
             Location = location;
             Capacity = capacity;
             HasSpeaker = hasSpeaker;
@@ -19,7 +18,6 @@ namespace Common.Model
 
         #region Implementation of IRoomModel
 
-        public int Id { get; set; }
         public RoomLocation Location { get; set; }
         public int Capacity { get; set; }
         public bool HasSpeaker { get; set; }
@@ -29,7 +27,7 @@ namespace Common.Model
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id}, {nameof(Location)}: {Location}, {nameof(Capacity)}: {Capacity}";
+            return $"{nameof(Location)}: {Location}, {nameof(Capacity)}: {Capacity}";
         }
     }
 }

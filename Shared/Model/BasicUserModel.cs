@@ -8,16 +8,15 @@ namespace Common.Model
     {
         #region Constructor(s)
 
-        public BasicUserModel(string name, string id, UserClearance userClearance, List<IReservationModel> reservations)
+        public BasicUserModel(string name, UserClearance userClearance, List<IReservationModel> reservations)
         {
             Name = name;
-            Id = id;
             UserClearance = userClearance;
             RoomReservations = reservations;
         }
 
-        public BasicUserModel(string name, string id, UserClearance userClearance)
-            : this(name, id, userClearance, new List<IReservationModel>())
+        public BasicUserModel(string name, UserClearance userClearance)
+            : this(name, userClearance, new List<IReservationModel>())
         {
         }
 
@@ -25,7 +24,6 @@ namespace Common.Model
 
         #region Implementation of IUserModel
 
-        public string Id { get; set; }
         public string Name { get; set; }
         public UserClearance UserClearance { get; set; }
         public List<IReservationModel> RoomReservations { get; set; }
@@ -34,7 +32,7 @@ namespace Common.Model
 
         public override string ToString()
         {
-            return $"{nameof(Name)}: {Name}, {nameof(Id)}: {Id}, {nameof(UserClearance)}: {UserClearance.GetName()}";
+            return $"{nameof(Name)}: {Name}, {nameof(UserClearance)}: {UserClearance.GetName()}";
         }
     }
 }

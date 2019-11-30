@@ -2,10 +2,10 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Blazored.Toast;
 using BlazorPOC.Client;
+using BlazorPOC.Configuration;
 using BlazorPOC.Extensions;
 using BlazorPOC.Modules;
 using Common.Communication;
-using Common.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -20,6 +20,16 @@ namespace BlazorPOC
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+        }
+
+        static Startup()
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("config.json")
+                .Build();
+
+            Config = config.GetSection(nameof(Config))
+                    .Get<ServerConnectionConfiguration>();
         }
 
         public IConfiguration Configuration { get; }
@@ -66,30 +76,29 @@ namespace BlazorPOC
 
         private static void RegisterDependencies(ContainerBuilder builder)
         {
+            #region Register Modules
+
             builder.RegisterModule<ConfigurationModule>();
 
-            builder.RegisterType<WeatherForecastModel>().As<IWeatherForecastModel>().SingleInstance();
-            builder.RegisterType<ConnectedServerModel>().As<IConnectedServerModel>().SingleInstance();
+            #endregion
 
             #region Register Client
 
             var connection = BuildConnection();
             builder.RegisterInstance(new ServerProxy(connection)).As<IServerProxy>();
-            builder.RegisterType<WeatherClient>().As<IWeatherClient>()
+            builder.RegisterType<RoomReservationClient>().As<IRoomReservationClient>()
                 .SingleInstance()
-                .OnActivated(weatherClient => connection.ConfigureClient<IWeatherClient>(weatherClient.Instance));
+                .OnActivated(roomResClient => connection.ConfigureClient<IRoomReservationClient>(roomResClient.Instance));
 
             #endregion
         }
 
-        // TODO : Configure URL
         private static HubConnection BuildConnection() => new HubConnectionBuilder()
             .WithAutomaticReconnect()
-            .WithUrl($"http://localhost:8080/{HubName}")
+            .WithUrl($"http://{Config.ServerAddress}:{Config.ServerPort}/{Config.ServerAddress}")
             .Build();
 
-        // TODO : Configure
-        private const string HubName = "weatherHub";
+        private static IServerConnectionConfiguration Config { get; set; }
 
         #endregion
     }

@@ -8,15 +8,6 @@ namespace BlazorPOC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("config.json")
-                .Build();
-
-            var appConfiguration = config.GetSection(nameof(AppConfiguration))
-                .Get<AppConfiguration>();
-
-            builder.RegisterInstance(appConfiguration)
-                .As<IAppConfiguration>();
         }
     }
 }
