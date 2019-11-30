@@ -19,7 +19,9 @@ namespace DbFiller
             var container = RegisterDependencies(config);
             
             var fillerFactory = container.Resolve<Func<string, DatabaseFiller>>();
-            fillerFactory(dataFileName).Execute();
+            fillerFactory(dataFileName).Execute()
+                .GetAwaiter()
+                .GetResult();
         }
 
         private static IContainer RegisterDependencies(IConfigurationRoot config)

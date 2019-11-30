@@ -1,7 +1,9 @@
 ﻿using DAL;
 using DAL.Configuration;
+using Polly;
 using Serilog;
 using System;
+using System.Threading.Tasks;
 
 namespace DbFiller
 {
@@ -19,15 +21,14 @@ namespace DbFiller
             Logger.Information("Starting {ProjectName} with config file: {fileName}", nameof(DatabaseFiller), dataFileName);
         }
 
-        public void Execute()
+        public async Task Execute()
         {
-            // TODO : add resilience
             using var context = new ServerDbContextFactory(DatabaseConfiguration).CreateDbContext(null);
             Logger.Information("Connected to database with settings: {DbSettings}", DatabaseConfiguration);
             context.Database.EnsureCreated();
 
             ClearDb(context);
-            FillDb(context);
+            await FillDb(context);
         }
 
         public void ClearDb(ServerDbContext context)
@@ -40,7 +41,7 @@ namespace DbFiller
             Logger.Information("Deleted {number} reservation entries...", deletedReservations);
         }
 
-        public void FillDb(ServerDbContext context)
+        public async Task FillDb(ServerDbContext context)
         {
             var rooms = DataReader.GetRooms();
             var users = DataReader.GetUsers();
@@ -51,7 +52,9 @@ namespace DbFiller
             context.RoomReservations.AddRange(reservations);
             Logger.Information("Added all data to the db context");
 
-            context.SaveChanges();
+            await Policy.Handle<Exception>()
+                .RetryForeverAsync((e, i, c) => Logger.Information($"Error: {e} on retry #{i}."))
+                .ExecuteAsync(async () => await context.SaveChangesAsync());
             Logger.Information("Saved all data to the db context");
         }
 

@@ -1,6 +1,9 @@
 ﻿using DAL;
 using DAL.Configuration;
+using Polly;
+using Polly.Retry;
 using Serilog;
+using System;
 
 namespace Server.Services.DataAccess
 {
@@ -15,6 +18,9 @@ namespace Server.Services.DataAccess
             DatabaseConfiguration = databaseConfiguration;
 
             Logger.DatabaseConfigured(DatabaseConfiguration);
+
+            RetryPolicy = Policy.Handle<Exception>()
+                .RetryForeverAsync((e, i, c) => Logger.Information($"Error: {e} on retry #{i}."));
         }
 
         #endregion
@@ -32,6 +38,7 @@ namespace Server.Services.DataAccess
 
         private ILogger Logger { get; }
         private IDatabaseConfiguration DatabaseConfiguration { get; set; }
+        private AsyncRetryPolicy RetryPolicy { get; set; }
 
         private ServerDbContext DbContextInstance
         {
@@ -40,12 +47,7 @@ namespace Server.Services.DataAccess
                 if (DatabaseConfiguration == null)
                     return null;
 
-                // return new ServerDbContextFactory
-                return new ServerDbContext(DatabaseConfiguration.ServerAddress,
-                    DatabaseConfiguration.ServerPort,
-                    DatabaseConfiguration.DbName,
-                    DatabaseConfiguration.Username,
-                    DatabaseConfiguration.Password);
+                return new ServerDbContextFactory(DatabaseConfiguration).CreateDbContext(null);
             }
         }
 
