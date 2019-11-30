@@ -10,6 +10,6 @@ namespace DAL.DbEntities
         public DateTime EndTime { get; set; }
         public UserClearance RequiredClearance { get; set; }
         public virtual Room Room { get; set; }
-        public virtual User User { get; set; }
+        public virtual User Initiator { get; set; }
     }
 }

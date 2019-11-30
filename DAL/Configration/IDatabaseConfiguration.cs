@@ -1,4 +1,4 @@
-﻿namespace Server.Configuration
+﻿namespace DAL.Configuration
 {
     public interface IDatabaseConfiguration
     {

@@ -1,6 +1,6 @@
 ﻿using Autofac;
+using DAL.Configuration;
 using Microsoft.Extensions.Configuration;
-using Server.Configuration;
 
 namespace Server.Modules
 {

@@ -1,5 +1,5 @@
-﻿using Serilog;
-using Server.Configuration;
+﻿using DAL.Configuration;
+using Serilog;
 
 namespace Server.Services.DataAccess
 {

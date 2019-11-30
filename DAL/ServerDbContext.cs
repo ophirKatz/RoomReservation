@@ -7,6 +7,11 @@ namespace DAL
     {
         #region Constructor
 
+        public ServerDbContext(DbContextOptions<ServerDbContext> options)
+            : base(options)
+        {
+        }
+
         public ServerDbContext(string serverAddress, int serverPort, string dbName, string username, string password)
         {
             SetConnectionString(serverAddress, serverPort, dbName, username, password);
@@ -24,11 +29,6 @@ namespace DAL
 
         #region Db Configuration
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySQL(ConnectionString);
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -42,7 +42,7 @@ namespace DAL
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).IsRequired();
+                entity.Property(e => e.Username).IsRequired();
                 entity.Property(d => d.UserClearance).IsRequired();
             });
 
@@ -52,7 +52,7 @@ namespace DAL
                 entity.Property(e => e.RequiredClearance).IsRequired();
                 entity.Property(e => e.StartTime).IsRequired();
                 entity.Property(e => e.EndTime).IsRequired();
-                entity.HasOne(e => e.User).WithMany(user => user.Reservations);
+                entity.HasOne(e => e.Initiator).WithMany(user => user.Reservations);
             });
         }
 
@@ -63,7 +63,7 @@ namespace DAL
 
         #endregion
 
-        private const string ConnectionStringFormat = "Server={0}; Port={1}; Database={2}; Uid={3}; Pwd={4};";
+        private const string ConnectionStringFormat = "Server={0}; Port={1}; Database={2}; User Id={3}; Password={4};";
         private string ConnectionString { get; set; }
     }
 }

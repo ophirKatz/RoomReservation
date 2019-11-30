@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Server.Hubs;
@@ -16,6 +17,7 @@ namespace Server.Server
             // any IServiceProvider or the ConfigureContainer method
             // won't get called.
             services.AddSignalR();
+            services.AddDbContext<ServerDbContext>();
         }
 
         // ConfigureContainer is where you can register things directly

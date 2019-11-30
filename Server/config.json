@@ -3,10 +3,10 @@
     "ServerAddress": "http://localhost:8080"
   },
   "DatabaseConfiguration": {
-    "ServerAddress": "localhost",
-    "ServerPort": 9000,
-    "DbName": "RoomRes",
-    "Username": "OphirKatz",
-    "Password": "Aa123456"
+    "ServerAddress": ".\\SQLEXPRESS", // this is the server name, not ip.
+    "ServerPort": 9000, // as of now, this is not used
+    "DbName": "RoomRes", // name of the db
+    "Username": "Ophir", // This is the name of the logged in user
+    "Password": "" // No password
   }
 }

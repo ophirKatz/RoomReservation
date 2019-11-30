@@ -1,6 +1,6 @@
 ﻿using DAL;
+using DAL.Configuration;
 using Serilog;
-using Server.Configuration;
 
 namespace Server.Services.DataAccess
 {
