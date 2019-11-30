@@ -17,9 +17,12 @@ namespace DbFiller
             using var context = new ServerDbContextFactory(DatabaseConfiguration).CreateDbContext(null);
             context.Database.EnsureCreated();
 
-            context.Rooms.AddRange(DataReader.GetRooms());
-            context.Users.AddRange(DataReader.GetUsers());
-            context.RoomReservations.AddRange(DataReader.GetReservations());
+            var rooms = DataReader.GetRooms();
+            var users = DataReader.GetUsers();
+            var reservations = DataReader.GetReservations();
+            context.Rooms.AddRange(rooms);
+            context.Users.AddRange(users);
+            context.RoomReservations.AddRange(reservations);
             context.SaveChanges();
         }
 

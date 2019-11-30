@@ -28,17 +28,17 @@ namespace DbFiller
 
         public IEnumerable<Reservation> GetReservations()
         {
-            return ReadFile().Reservations;
+            return ReadFile().Reservations.Values;
         }
 
         public IEnumerable<Room> GetRooms()
         {
-            return ReadFile().Rooms;
+            return ReadFile().Rooms.Values;
         }
 
         public IEnumerable<User> GetUsers()
         {
-            return ReadFile().Users;
+            return ReadFile().Users.Values;
         }
 
         #endregion
@@ -67,29 +67,34 @@ namespace DbFiller
 
             #region Fill Lists
 
-            Rooms = RoomSections.Values.Select(section => section.Get<Room>()).ToList();
-
-            Users = UserSections.Values.Select(userSection => {
-                var newUser = new User
-                {
-                    Id = int.Parse(userSection["Id"]),
-                    Username = userSection["Username"],
-                    UserClearance = Enums.Parse<UserClearance>(userSection["UserClearance"])
-                };
-                return newUser;
-            }).ToList();
-
-            Reservations = ReservationSections.Values.Select(reservationSection => new Reservation
+            Rooms = RoomSections.Values.ToDictionary(section => int.Parse(section["Id"]), section => new Room
             {
-                Id = int.Parse(reservationSection["Id"]),
-                StartTime = DateTime.Parse(reservationSection["StartTime"]),
-                EndTime = DateTime.Parse(reservationSection["EndTime"]),
-                RequiredClearance = Enums.Parse<UserClearance>(reservationSection["RequiredClearance"]),
-                Initiator = Users.Single(user => user.Id == int.Parse(reservationSection["InitiatorId"])),
-                Room = Rooms.Single(room => room.Id == int.Parse(reservationSection["RoomId"]))
-            }).ToList();
+                Capacity = int.Parse(section["Capacity"]),
+                HasSpeaker = bool.Parse(section["HasSpeaker"]),
+                HasComputer = bool.Parse(section["HasComputer"])
+            });
 
-            Users.ForEach(user => user.Reservations = Reservations.Where(reservation => reservation.Initiator.Id == user.Id).ToList());
+            Users = UserSections.Values.ToDictionary(section => int.Parse(section["Id"]), section => new User
+            {
+                Username = section["Username"],
+                UserClearance = Enums.Parse<UserClearance>(section["UserClearance"])
+            });
+
+            Reservations = ReservationSections.Values.ToDictionary(section => int.Parse(section["Id"]), section => new Reservation
+            {
+                StartTime = DateTime.Parse(section["StartTime"]),
+                EndTime = DateTime.Parse(section["EndTime"]),
+                RequiredClearance = Enums.Parse<UserClearance>(section["RequiredClearance"]),
+                Initiator = Users.Single(user => user.Key == int.Parse(section["InitiatorId"])).Value,
+                Room = Rooms.Single(room => room.Key == int.Parse(section["RoomId"])).Value
+            });
+
+            foreach (var userEntry in Users)
+            {
+                userEntry.Value.Reservations = Reservations.Where(reservation => reservation.Value.Initiator.Id == userEntry.Key)
+                    .Select(reservationEntry => reservationEntry.Value)
+                    .ToList();
+            }
 
             #endregion
 
@@ -104,9 +109,9 @@ namespace DbFiller
         private Dictionary<string, IConfigurationSection> UserSections { get; set; }
         private Dictionary<string, IConfigurationSection> ReservationSections { get; set; }
 
-        private List<Room> Rooms { get; set; }
-        private List<User> Users { get; set; }
-        private List<Reservation> Reservations { get; set; }
+        private Dictionary<int, Room> Rooms { get; set; }
+        private Dictionary<int, User> Users { get; set; }
+        private Dictionary<int, Reservation> Reservations { get; set; }
 
         #endregion
     }
