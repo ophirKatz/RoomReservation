@@ -2,6 +2,7 @@
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using Server.Hubs;
 using Server.Modules;
 
@@ -30,6 +31,16 @@ namespace Server.Server
 
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<ConfigurationModule>();
+
+            #endregion
+
+            #region Register Logger
+
+            builder.Register<ILogger>((c, p) =>
+            {
+                // TODO : add log to file
+                return new LoggerConfiguration().WriteTo.Console().CreateLogger();
+            }).SingleInstance();
 
             #endregion
 

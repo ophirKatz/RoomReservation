@@ -1,5 +1,7 @@
-﻿using DAL.Configuration;
+﻿using Autofac;
+using DAL.Configuration;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 using System;
 
 namespace DbFiller
@@ -13,13 +15,37 @@ namespace DbFiller
                 .Build();
 
             var dataFileName = config["Reader:DataFileName"];
+
+            var container = RegisterDependencies(config);
+            
+            var fillerFactory = container.Resolve<Func<string, DatabaseFiller>>();
+            fillerFactory(dataFileName).FillDb();
+
+            var logger = container.Resolve<ILogger>();
+
+            logger.Information("Please press any key to finish the DbFiller process...");
+            Console.ReadKey();
+        }
+
+        private static IContainer RegisterDependencies(IConfigurationRoot config)
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<JsonDataReader>().As<IDataReader>();
+            builder.RegisterType<DatabaseFiller>().AsSelf();
+
             var dbConfig = config.GetSection(nameof(DatabaseConfiguration))
                   .Get<DatabaseConfiguration>();
 
-            new DatabaseFiller(new JsonDataReader(dataFileName), dbConfig)
-                .FillDb();
+            builder.Register<ILogger>((c, p) =>
+            {
+                return new LoggerConfiguration().WriteTo.Console().CreateLogger();
+            }).SingleInstance();
 
-            Console.ReadKey();
+            builder.RegisterInstance(dbConfig);
+
+            return builder.Build();
+
         }
     }
 }

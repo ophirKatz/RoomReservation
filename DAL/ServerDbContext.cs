@@ -27,6 +27,13 @@ namespace DAL
 
         #endregion
 
+        public void ClearDb(out int deletedRooms, out int deletedUsers, out int deletedReservations)
+        {
+            deletedRooms = Database.ExecuteSqlInterpolated($"delete from {nameof(Rooms)}");
+            deletedUsers = Database.ExecuteSqlInterpolated($"delete from {nameof(Users)}");
+            deletedReservations = Database.ExecuteSqlInterpolated($"delete from {nameof(RoomReservations)}");
+        }
+
         #region Db Configuration
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
