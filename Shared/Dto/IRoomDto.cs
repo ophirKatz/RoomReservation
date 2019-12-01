@@ -1,8 +1,8 @@
 ﻿using Common.Data;
 
-namespace Common.Model
+namespace Common.Dto
 {
-    public interface IRoomModel
+    public interface IRoomDto
     {
         string Description { get; set; }
         RoomLocation Location { get; set; }

@@ -1,12 +1,12 @@
 ﻿using Common.Data;
 
-namespace Common.Model
+namespace Common.Dto
 {
-    public class RoomModel : IRoomModel
+    public class RoomDto : IRoomDto
     {
         #region Constructor(s)
 
-        public RoomModel(string description, RoomLocation location, int capacity, bool hasSpeaker, bool hasComputer)
+        public RoomDto(string description, RoomLocation location, int capacity, bool hasSpeaker, bool hasComputer)
         {
             Description = description;
             Location = location;

@@ -40,8 +40,6 @@ namespace DbFiller
                 return new LoggerConfiguration().WriteTo.Console().CreateLogger();
             }).SingleInstance();
 
-            builder.RegisterInstance(dbConfig);
-
             return builder.Build();
 
         }

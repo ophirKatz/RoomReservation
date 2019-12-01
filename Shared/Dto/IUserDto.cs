@@ -1,12 +1,12 @@
 ﻿using Common.Enums;
 using System.Collections.Generic;
 
-namespace Common.Model
+namespace Common.Dto
 {
-    public interface IUserModel
+    public interface IUserDto
     {
         string Name { get; set; }
         UserClearance UserClearance { get; set; }
-        List<IReservationModel> RoomReservations { get; set; }
+        List<IReservationDto> RoomReservations { get; set; }
     }
 }

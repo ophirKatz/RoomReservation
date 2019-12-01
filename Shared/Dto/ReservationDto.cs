@@ -2,14 +2,15 @@
 using EnumsNET;
 using System;
 
-namespace Common.Model
+namespace Common.Dto
 {
-    public class ReservationModel : IReservationModel
+    public class ReservationDto : IReservationDto
     {
         #region Constructor
 
-        public ReservationModel(DateTime startTime, DateTime endTime, IRoomModel room, IUserModel userModel, UserClearance requiredClearance)
+        public ReservationDto(int id, DateTime startTime, DateTime endTime, IRoomDto room, IUserDto userModel, UserClearance requiredClearance)
         {
+            Id = id;
             StartTime = startTime;
             EndTime = endTime;
             Room = room;
@@ -21,11 +22,12 @@ namespace Common.Model
 
         #region Implementation of IReservationModel
 
+        public int Id { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public TimeSpan TimeSpan => EndTime.Subtract(StartTime);
-        public IRoomModel Room { get; set; }
-        public IUserModel Initiator { get; set; }
+        public IRoomDto Room { get; set; }
+        public IUserDto Initiator { get; set; }
         public UserClearance RequiredClearance { get; set; }
 
         #endregion

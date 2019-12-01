@@ -1,12 +1,12 @@
-﻿using Common.Model;
+﻿using Common.Dto;
 using DAL.DbEntities;
 
 namespace Server.Services.DataAccess.Converters
 {
     public interface IDtoToEntityConverter
     {
-        Room ConvertRoomModel(IRoomModel roomModel);
-        User ConvertUserModel(IUserModel userModel);
-        Reservation ConvertReservationModel(IReservationModel reservationModel);
+        Room ConvertRoomModel(IRoomDto roomModel);
+        User ConvertUserModel(IUserDto userModel);
+        Reservation ConvertReservationModel(IReservationDto reservationModel);
     }
 }

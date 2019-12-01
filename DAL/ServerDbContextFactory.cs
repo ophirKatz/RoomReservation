@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 
 namespace DAL
 {
@@ -23,6 +24,17 @@ namespace DAL
                 dbConfig.Password);
         }
 
+        public ServerDbContextFactory(IDatabaseConfiguration dbConfig,
+            ILogger logger)
+        {
+            _connectionString = string.Format(ConnectionStringFormat,
+                dbConfig.ServerAddress,
+                dbConfig.DbName,
+                dbConfig.Username,
+                dbConfig.Password);
+            Logger = logger;
+        }
+
         #endregion
 
         public ServerDbContext CreateDbContext(string[] args)
@@ -30,7 +42,7 @@ namespace DAL
             var optionsBuilder = new DbContextOptionsBuilder<ServerDbContext>();
             optionsBuilder.UseSqlServer(_connectionString);
 
-            return new ServerDbContext(optionsBuilder.Options);
+            return new ServerDbContext(optionsBuilder.Options, Logger);
         }
 
         #region Private Members
@@ -43,6 +55,8 @@ namespace DAL
 
         private readonly string _connectionString;
         private const string ConnectionStringFormat = "Server={0}; Database={1}; User Id={2}; Password={3};Integrated Security=True;";
+
+        private ILogger Logger { get; }
 
         #endregion
     }

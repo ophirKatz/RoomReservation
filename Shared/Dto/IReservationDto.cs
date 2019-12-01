@@ -1,15 +1,16 @@
 ﻿using Common.Enums;
 using System;
 
-namespace Common.Model
+namespace Common.Dto
 {
-    public interface IReservationModel
+    public interface IReservationDto
     {
+        int Id { get; set; }
         DateTime StartTime { get; set; }
         DateTime EndTime { get; set; }
         TimeSpan TimeSpan { get; }
-        IRoomModel Room { get; set; }
-        IUserModel Initiator { get; set; }
+        IRoomDto Room { get; set; }
+        IUserDto Initiator { get; set; }
         UserClearance RequiredClearance { get; set; }
     }
 }

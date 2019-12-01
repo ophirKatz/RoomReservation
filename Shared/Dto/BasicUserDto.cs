@@ -2,21 +2,21 @@
 using EnumsNET;
 using System.Collections.Generic;
 
-namespace Common.Model
+namespace Common.Dto
 {
-    public class BasicUserModel : IUserModel
+    public class BasicUserDto : IUserDto
     {
         #region Constructor(s)
 
-        public BasicUserModel(string name, UserClearance userClearance, List<IReservationModel> reservations)
+        public BasicUserDto(string name, UserClearance userClearance, List<IReservationDto> reservations)
         {
             Name = name;
             UserClearance = userClearance;
             RoomReservations = reservations;
         }
 
-        public BasicUserModel(string name, UserClearance userClearance)
-            : this(name, userClearance, new List<IReservationModel>())
+        public BasicUserDto(string name, UserClearance userClearance)
+            : this(name, userClearance, new List<IReservationDto>())
         {
         }
 
@@ -26,7 +26,7 @@ namespace Common.Model
 
         public string Name { get; set; }
         public UserClearance UserClearance { get; set; }
-        public List<IReservationModel> RoomReservations { get; set; }
+        public List<IReservationDto> RoomReservations { get; set; }
 
         #endregion
 

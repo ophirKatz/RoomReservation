@@ -13,6 +13,10 @@ namespace DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(nullable: true),
+                    Building = table.Column<string>(nullable: true),
+                    Floor = table.Column<int>(nullable: false),
+                    Number = table.Column<int>(nullable: false),
                     Capacity = table.Column<int>(nullable: false),
                     HasSpeaker = table.Column<bool>(nullable: false),
                     HasComputer = table.Column<bool>(nullable: false)
@@ -74,6 +78,13 @@ namespace DAL.Migrations
                 name: "IX_RoomReservations_RoomId",
                 table: "RoomReservations",
                 column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_Description",
+                table: "Rooms",
+                column: "Description",
+                unique: true,
+                filter: "[Description] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

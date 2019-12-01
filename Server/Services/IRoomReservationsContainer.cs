@@ -1,12 +1,12 @@
-﻿using Common.Model;
-using System.Collections.Generic;
+﻿using Common.Dto;
+using System.Collections.ObjectModel;
 
 namespace Server.Services
 {
     public interface IRoomReservationsContainer
     {
-        ICollection<IRoomModel> Rooms { get; set; }
-        ICollection<IUserModel> Users { get; set; }
-        ICollection<IReservationModel> Reservations { get; set; }
+        ObservableCollection<IRoomDto> Rooms { get; set; }
+        ObservableCollection<IUserDto> Users { get; set; }
+        ObservableCollection<IReservationDto> Reservations { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Common.Extensions;
-using Common.Model;
+using Common.Dto;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -12,24 +12,18 @@ namespace Server.Services
 
         public RoomReservationsContainer()
         {
-            Rooms = new ObservableCollection<IRoomModel>()
-                .RegisterCollectionChanged(RoomReservationsContainer_CollectionChanged);
-            Users = new ObservableCollection<IUserModel>();
-            Reservations = new ObservableCollection<IReservationModel>();
-        }
-
-        private void RoomReservationsContainer_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            throw new System.NotImplementedException(); 
+            Rooms = new ObservableCollection<IRoomDto>();
+            Users = new ObservableCollection<IUserDto>();
+            Reservations = new ObservableCollection<IReservationDto>();
         }
 
         #endregion
 
         #region Implementation of IRoomReservationsContainer
 
-        public ICollection<IRoomModel> Rooms { get; set; }
-        public ICollection<IUserModel> Users { get; set; }
-        public ICollection<IReservationModel> Reservations { get; set; }
+        public ObservableCollection<IRoomDto> Rooms { get; set; }
+        public ObservableCollection<IUserDto> Users { get; set; }
+        public ObservableCollection<IReservationDto> Reservations { get; set; }
 
         #endregion
     }

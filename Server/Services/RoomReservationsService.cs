@@ -1,6 +1,7 @@
-﻿using Common.Model;
+﻿using Common.Dto;
 using Serilog;
 using Server.Services.DataAccess;
+using Server.Services.DataAccess.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,48 +14,52 @@ namespace Server.Services
 
         public RoomReservationsService(IDataAccessService dataAccessService,
             ILogger logger,
-            I)
+            IEntityToDtoConverter entityToDtoConverter)
         {
             DataAccessService = dataAccessService;
             Logger = logger;
+            EntityToDtoConverter = entityToDtoConverter;
         }
 
         #endregion
 
         #region Implementation of IRoomReservationsService
 
-        public List<IRoomModel> GetAllAvailableRooms()
+        public List<IRoomDto> GetAllAvailableRooms()
         {
             throw new NotImplementedException();
         }
 
-        public List<IRoomModel> GetAllAvailableRooms(DateTime startTime)
+        public List<IRoomDto> GetAllAvailableRooms(DateTime startTime)
         {
             throw new NotImplementedException();
         }
 
-        public List<IRoomModel> GetAllAvailableRooms(DateTime startTime, DateTime endTime)
+        public List<IRoomDto> GetAllAvailableRooms(DateTime startTime, DateTime endTime)
         {
             throw new NotImplementedException();
         }
 
-        public List<IRoomModel> GetAllRooms()
+        public List<IRoomDto> GetAllRooms()
         {
             throw new NotImplementedException();
         }
 
-        public List<IUserModel> GetAllUsers()
+        public List<IUserDto> GetAllUsers()
         {
-            throw new NotImplementedException();
-            // return DataAccessService.GetAllUsers().Select(user => );
+            Logger.Information("Getting all users from db...");
+            return DataAccessService.GetAllUsers()
+                .Select(user => EntityToDtoConverter.ConvertUserEntity(user))
+                .ToList();
         }
 
         #endregion
 
         #region Private Members
 
-        public IDataAccessService DataAccessService { get; }
-        public ILogger Logger { get; }
+        private IDataAccessService DataAccessService { get; }
+        private ILogger Logger { get; }
+        private IEntityToDtoConverter EntityToDtoConverter { get; }
 
         #endregion
     }

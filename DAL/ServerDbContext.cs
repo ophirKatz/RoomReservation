@@ -1,5 +1,6 @@
 ﻿using DAL.DbEntities;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace DAL
 {
@@ -12,6 +13,13 @@ namespace DAL
         {
         }
 
+        public ServerDbContext(DbContextOptions<ServerDbContext> options,
+            ILogger logger)
+            : this(options)
+        {
+            Logger = logger;
+        }
+
         #endregion
 
         #region Db Collections
@@ -22,11 +30,16 @@ namespace DAL
 
         #endregion
 
-        public void ClearDb(out int deletedRooms, out int deletedUsers, out int deletedReservations)
+        public void ClearDb()
         {
-            deletedReservations = Database.ExecuteSqlRaw($"delete from {nameof(RoomReservations)}");
-            deletedRooms = Database.ExecuteSqlRaw($"delete from {nameof(Rooms)}");
-            deletedUsers = Database.ExecuteSqlRaw($"delete from {nameof(Users)}");
+            var deletedReservations = Database.ExecuteSqlRaw($"delete from {nameof(RoomReservations)}");
+            var deletedRooms = Database.ExecuteSqlRaw($"delete from {nameof(Rooms)}");
+            var deletedUsers = Database.ExecuteSqlRaw($"delete from {nameof(Users)}");
+
+            if (Logger == null) return;
+            Logger.Information("Deleted {number} reservation entries...", deletedReservations);
+            Logger.Information("Deleted {number} room entries...", deletedRooms);
+            Logger.Information("Deleted {number} user entries...", deletedUsers);
         }
 
         #region Db Configuration
@@ -58,6 +71,12 @@ namespace DAL
                 entity.HasOne(e => e.Initiator).WithMany(user => user.Reservations);
             });
         }
+
+        #endregion
+
+        #region Private Members
+
+        private ILogger Logger { get; }
 
         #endregion
     }

@@ -2,18 +2,30 @@
   "Rooms": [
     {
       "Id": "1",
+      "Description": "My Office",
+      "Building": "236",
+      "Floor": 2,
+      "Number": 244,
       "Capacity": "10",
       "HasSpeaker": "true",
       "HasComputer": "true"
     },
     {
       "Id": "2",
+      "Description": "Jenka",
+      "Building": "236",
+      "Floor": 4,
+      "Number": 450,
       "Capacity": "5",
       "HasSpeaker": "false",
       "HasComputer": "true"
     },
     {
       "Id": "3",
+      "Description": "Sum",
+      "Building": "236",
+      "Floor": 2,
+      "Number": 260,
       "Capacity": "20",
       "HasSpeaker": "false",
       "HasComputer": "true"

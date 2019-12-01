@@ -28,20 +28,22 @@ namespace DbFiller
             context.Database.EnsureCreated();
 
             ClearDb(context);
-            await FillDb(context);
+            FillDb(context);
+
+            await Policy.Handle<Exception>()
+                .RetryForeverAsync((e, i, c) => Logger.Information($"Error: {e} on retry #{i}."))
+                .ExecuteAsync(async () => await context.SaveChangesAsync());
+            Logger.Information("Saved all data to the db context");
         }
 
         public void ClearDb(ServerDbContext context)
         {
             Logger.Information("Clearing the database...");
 
-            context.ClearDb(out var deletedRooms, out var deletedUsers, out var deletedReservations);
-            Logger.Information("Deleted {number} room entries...", deletedRooms);
-            Logger.Information("Deleted {number} user entries...", deletedUsers);
-            Logger.Information("Deleted {number} reservation entries...", deletedReservations);
+            context.ClearDb();
         }
 
-        public async Task FillDb(ServerDbContext context)
+        public void FillDb(ServerDbContext context)
         {
             var rooms = DataReader.GetRooms();
             var users = DataReader.GetUsers();
@@ -51,11 +53,6 @@ namespace DbFiller
             context.Users.AddRange(users);
             context.RoomReservations.AddRange(reservations);
             Logger.Information("Added all data to the db context");
-
-            await Policy.Handle<Exception>()
-                .RetryForeverAsync((e, i, c) => Logger.Information($"Error: {e} on retry #{i}."))
-                .ExecuteAsync(async () => await context.SaveChangesAsync());
-            Logger.Information("Saved all data to the db context");
         }
 
         public IDataReader DataReader { get; }

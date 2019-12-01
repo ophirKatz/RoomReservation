@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.Model;
+using Common.Dto;
 
 namespace Server.Services
 {
     public interface IRoomReservationsService
     {
-        List<IUserModel> GetAllUsers();
-        List<IRoomModel> GetAllRooms();
-        List<IRoomModel> GetAllAvailableRooms();
-        List<IRoomModel> GetAllAvailableRooms(DateTime startTime);
-        List<IRoomModel> GetAllAvailableRooms(DateTime startTime, DateTime endTime);
+        List<IUserDto> GetAllUsers();
+        List<IRoomDto> GetAllRooms();
+        List<IRoomDto> GetAllAvailableRooms();
+        List<IRoomDto> GetAllAvailableRooms(DateTime startTime);
+        List<IRoomDto> GetAllAvailableRooms(DateTime startTime, DateTime endTime);
     }
 }

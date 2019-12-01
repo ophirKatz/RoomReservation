@@ -85,6 +85,10 @@ namespace DbFiller
 
                 Rooms = RoomSections.Values.ToDictionary(section => int.Parse(section["Id"]), section => new Room
                 {
+                    Description = section["Description"],
+                    Building = section["Building"],
+                    Floor = int.Parse(section["Floor"]),
+                    Number = int.Parse(section["Number"]),
                     Capacity = int.Parse(section["Capacity"]),
                     HasSpeaker = bool.Parse(section["HasSpeaker"]),
                     HasComputer = bool.Parse(section["HasComputer"])

@@ -1,4 +1,4 @@
-﻿using Common.Model;
+﻿using Common.Dto;
 using DAL.DbEntities;
 using System.Linq;
 
@@ -17,7 +17,7 @@ namespace Server.Services.DataAccess.Converters
 
         #region Implementation of IDtoToEntityConverter
 
-        public Reservation ConvertReservationModel(IReservationModel reservationModel)
+        public Reservation ConvertReservationModel(IReservationDto reservationModel)
         {
             if (!DataAccessService.TryGetRoomByDescription(reservationModel.Room.Description, out var room))
             {
@@ -39,7 +39,7 @@ namespace Server.Services.DataAccess.Converters
             };
         }
 
-        public Room ConvertRoomModel(IRoomModel roomModel)
+        public Room ConvertRoomModel(IRoomDto roomModel)
         {
             return new Room
             {
@@ -53,7 +53,7 @@ namespace Server.Services.DataAccess.Converters
             };
         }
 
-        public User ConvertUserModel(IUserModel userModel)
+        public User ConvertUserModel(IUserDto userModel)
         {
             var reservations = DataAccessService.GetUserReservations(userModel.Name);
             if (reservations == null)

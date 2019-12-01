@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ServerDbContext))]
-    [Migration("20191130094536_InitialCreate")]
+    [Migration("20191201204905_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,16 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Building")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Floor")
                         .HasColumnType("int");
 
                     b.Property<bool>("HasComputer")
@@ -68,7 +77,14 @@ namespace DAL.Migrations
                     b.Property<bool>("HasSpeaker")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Description")
+                        .IsUnique()
+                        .HasFilter("[Description] IS NOT NULL");
 
                     b.ToTable("Rooms");
                 });

@@ -1,4 +1,4 @@
-﻿using Common.Model;
+﻿using Common.Dto;
 using DAL.DbEntities;
 using System.Collections.Generic;
 
