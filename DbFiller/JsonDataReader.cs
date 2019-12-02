@@ -108,13 +108,6 @@ namespace DbFiller
                     Initiator = Users.Single(user => user.Key == int.Parse(section["InitiatorId"])).Value,
                     Room = Rooms.Single(room => room.Key == int.Parse(section["RoomId"])).Value
                 });
-
-                foreach (var userEntry in Users)
-                {
-                    userEntry.Value.Reservations = Reservations.Where(reservation => reservation.Value.Initiator.Id == userEntry.Key)
-                        .Select(reservationEntry => reservationEntry.Value)
-                        .ToList();
-                }
             }
             catch (Exception e)
             {

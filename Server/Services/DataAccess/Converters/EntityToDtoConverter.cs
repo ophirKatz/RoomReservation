@@ -41,12 +41,7 @@ namespace Server.Services.DataAccess.Converters
 
         public IUserDto ConvertUserEntity(User user)
         {
-            var userDto = UserDtoFactory(user.Username, user.UserClearance);
-            userDto.RoomReservations = user.Reservations
-                .Select(r => ConvertReservationEntity(r, userDto))
-                .ToList();
-
-            return userDto;
+            return UserDtoFactory(user.Username, user.UserClearance);
         }
 
         #endregion

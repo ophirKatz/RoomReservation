@@ -109,7 +109,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.DbEntities.Reservation", b =>
                 {
                     b.HasOne("DAL.DbEntities.User", "Initiator")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("InitiatorId");
 
                     b.HasOne("DAL.DbEntities.Room", "Room")

@@ -60,7 +60,6 @@ namespace DAL
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Username).IsRequired();
                 entity.Property(d => d.UserClearance).IsRequired();
-                entity.HasMany(u => u.Reservations).WithOne(r => r.Initiator);
             });
 
             modelBuilder.Entity<Reservation>(entity =>
@@ -69,7 +68,8 @@ namespace DAL
                 entity.Property(e => e.RequiredClearance).IsRequired();
                 entity.Property(e => e.StartTime).IsRequired();
                 entity.Property(e => e.EndTime).IsRequired();
-                entity.HasOne(e => e.Initiator).WithMany(user => user.Reservations);
+                entity.HasOne(e => e.Room);
+                entity.HasOne(e => e.Initiator);
             });
         }
 

@@ -64,8 +64,12 @@ namespace Server.Services.DataAccess
 
         public async Task<List<Reservation>> GetUserReservationsAsync(string username)
         {
-            var user = await GetUserByNameAsync(username);
-            return user?.Reservations;
+            using var context = DbContextInstance;
+            return await context.RoomReservations
+                .Include(r => r.Initiator)
+                .Include(r => r.Room)
+                .Where(r => r.Initiator.Username.Equals(username))
+                .ToListAsync();
         }
 
         public async Task<List<Reservation>> GetReservationsForRoomAsync(string description)
@@ -88,7 +92,6 @@ namespace Server.Services.DataAccess
         {
             using var context = DbContextInstance;
             return await context.Users
-                .Include(u => u.Reservations)
                 .ToListAsync();
         }
 
@@ -100,7 +103,6 @@ namespace Server.Services.DataAccess
         {
             using var context = DbContextInstance;
             return await context.Users
-                .Include(user => user.Reservations)
                 .FirstOrDefaultAsync(user => user.Username.Equals(username));
         }
 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ServerDbContext))]
-    [Migration("20191201204905_InitialCreate")]
+    [Migration("20191202203939_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -111,7 +111,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.DbEntities.Reservation", b =>
                 {
                     b.HasOne("DAL.DbEntities.User", "Initiator")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("InitiatorId");
 
                     b.HasOne("DAL.DbEntities.Room", "Room")

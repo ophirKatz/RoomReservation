@@ -55,20 +55,10 @@ namespace Server.Services.DataAccess.Converters
 
         public User ConvertUserDto(IUserDto userDto)
         {
-            var reservations = DataAccessService.GetUserReservationsAsync(userDto.Name)
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
-            if (reservations == null)
-            {
-                reservations = userDto.RoomReservations.Select(res => ConvertReservationDto(res)).ToList();
-            }
-
             return new User
             {
                 Username = userDto.Name,
-                UserClearance = userDto.UserClearance,
-                Reservations = reservations
+                UserClearance = userDto.UserClearance
             };
         }
 
