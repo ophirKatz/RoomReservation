@@ -28,7 +28,7 @@ namespace BlazorPOC
                 .AddJsonFile("config.json")
                 .Build();
 
-            Config = config.GetSection(nameof(Config))
+            Config = config.GetSection(nameof(ServerConnectionConfiguration))
                     .Get<ServerConnectionConfiguration>();
         }
 
@@ -95,7 +95,7 @@ namespace BlazorPOC
 
         private static HubConnection BuildConnection() => new HubConnectionBuilder()
             .WithAutomaticReconnect()
-            .WithUrl($"http://{Config.ServerAddress}:{Config.ServerPort}/{Config.ServerAddress}")
+            .WithUrl($"http://{Config.ServerAddress}:{Config.ServerPort}/{Config.ServerHubName}")
             .Build();
 
         private static IServerConnectionConfiguration Config { get; set; }

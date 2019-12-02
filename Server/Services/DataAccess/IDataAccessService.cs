@@ -1,6 +1,6 @@
-﻿using Common.Dto;
-using DAL.DbEntities;
+﻿using DAL.DbEntities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Server.Services.DataAccess
 {
@@ -8,9 +8,9 @@ namespace Server.Services.DataAccess
     {
         bool TryGetRoomByDescription(string description, out Room room);
         bool TryGetUserByName(string username, out User user);
-        List<Reservation> GetUserReservations(string username);
-        List<Reservation> GetReservationsForRoom(string description);
-        List<Room> GetAllRooms();
-        List<User> GetAllUsers();
+        Task<List<Reservation>> GetUserReservationsAsync(string username);
+        Task<List<Reservation>> GetReservationsForRoomAsync(string description);
+        Task<List<Room>> GetAllRoomsAsync();
+        Task<List<User>> GetAllUsersAsync();
     }
 }

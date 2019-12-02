@@ -17,54 +17,57 @@ namespace Server.Services.DataAccess.Converters
 
         #region Implementation of IDtoToEntityConverter
 
-        public Reservation ConvertReservationModel(IReservationDto reservationModel)
+        public Reservation ConvertReservationDto(IReservationDto reservationDto)
         {
-            if (!DataAccessService.TryGetRoomByDescription(reservationModel.Room.Description, out var room))
+            if (!DataAccessService.TryGetRoomByDescription(reservationDto.Room.Description, out var room))
             {
-                room = ConvertRoomModel(reservationModel.Room);
+                room = ConvertRoomDto(reservationDto.Room);
             }
 
-            if (!DataAccessService.TryGetUserByName(reservationModel.Initiator.Name, out var user))
+            if (!DataAccessService.TryGetUserByName(reservationDto.Initiator.Name, out var user))
             {
-                user = ConvertUserModel(reservationModel.Initiator);
+                user = ConvertUserDto(reservationDto.Initiator);
             }
 
             return new Reservation
             {
-                StartTime = reservationModel.StartTime,
-                EndTime = reservationModel.EndTime,
-                RequiredClearance = reservationModel.RequiredClearance,
+                StartTime = reservationDto.StartTime,
+                EndTime = reservationDto.EndTime,
+                RequiredClearance = reservationDto.RequiredClearance,
                 Room = room,
                 Initiator = user
             };
         }
 
-        public Room ConvertRoomModel(IRoomDto roomModel)
+        public Room ConvertRoomDto(IRoomDto roomDto)
         {
             return new Room
             {
-                Description = roomModel.Description,
-                Building = roomModel.Location.Building,
-                Floor = roomModel.Location.Floor,
-                Number = roomModel.Location.Number,
-                Capacity = roomModel.Capacity,
-                HasSpeaker = roomModel.HasSpeaker,
-                HasComputer = roomModel.HasComputer
+                Description = roomDto.Description,
+                Building = roomDto.Location.Building,
+                Floor = roomDto.Location.Floor,
+                Number = roomDto.Location.Number,
+                Capacity = roomDto.Capacity,
+                HasSpeaker = roomDto.HasSpeaker,
+                HasComputer = roomDto.HasComputer
             };
         }
 
-        public User ConvertUserModel(IUserDto userModel)
+        public User ConvertUserDto(IUserDto userDto)
         {
-            var reservations = DataAccessService.GetUserReservations(userModel.Name);
+            var reservations = DataAccessService.GetUserReservationsAsync(userDto.Name)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
             if (reservations == null)
             {
-                reservations = userModel.RoomReservations.Select(res => ConvertReservationModel(res)).ToList();
+                reservations = userDto.RoomReservations.Select(res => ConvertReservationDto(res)).ToList();
             }
 
             return new User
             {
-                Username = userModel.Name,
-                UserClearance = userModel.UserClearance,
+                Username = userDto.Name,
+                UserClearance = userDto.UserClearance,
                 Reservations = reservations
             };
         }

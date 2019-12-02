@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using Client
-@using Common.Data
+@using Common.Dto
 @inject IServerProxy ServerProxy
 @inject IToastService ToastService
 
@@ -44,9 +44,11 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
+        Users = ServerProxy.GetAllUsers();
         await Task.Delay(2000)
             .ContinueWith(_ => NumArray = new[] { 1, 2, 3, 4, 5 });
     }
 
+    private List<IUserDto> Users { get; set; }
     private IEnumerable<int> NumArray { get; set; }
 }

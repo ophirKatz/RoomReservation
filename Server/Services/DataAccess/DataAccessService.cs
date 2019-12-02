@@ -8,6 +8,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Server.Services.DataAccess
 {
@@ -49,54 +50,59 @@ namespace Server.Services.DataAccess
 
         public bool TryGetUserByName(string username, out User user)
         {
-            using (var context = DbContextInstance)
+            user = GetUserByNameAsync(username)
+                .GetAwaiter()
+                .GetResult();
+            if (user == null)
             {
-                user = context.Users
-                    .Include(user => user.Reservations)
-                    .FirstOrDefault(user => user.Username.Equals(username));
-                if (user == null)
-                {
-                    Logger.Error($"User with username {username} was not found", username);
-                    return false;
-                }
+                Logger.Error($"User with username {username} was not found", username);
+                return false;
             }
 
             return true;
         }
 
-        public List<Reservation> GetUserReservations(string username)
+        public async Task<List<Reservation>> GetUserReservationsAsync(string username)
         {
-            if (!TryGetUserByName(username, out var user)) return null;
-            return user.Reservations;
+            var user = await GetUserByNameAsync(username);
+            return user?.Reservations;
         }
 
-        public List<Reservation> GetReservationsForRoom(string description)
-        {
-            using (var context = DbContextInstance)
-            {
-                return context.RoomReservations
-                    .Include(reservation => reservation.Initiator)
-                    .Include(reservation => reservation.Room)
-                    .Where(reservation => reservation.Room.Description.Equals(description))
-                    .ToList();
-            }
-        }
-
-        public List<Room> GetAllRooms()
+        public async Task<List<Reservation>> GetReservationsForRoomAsync(string description)
         {
             using var context = DbContextInstance;
-            return context.Rooms.ToList();
+            return await context.RoomReservations
+                .Include(reservation => reservation.Initiator)
+                .Include(reservation => reservation.Room)
+                .Where(reservation => reservation.Room.Description.Equals(description))
+                .ToListAsync();
         }
 
-        public List<User> GetAllUsers()
+        public async Task<List<Room>> GetAllRoomsAsync()
         {
             using var context = DbContextInstance;
-            return context.Users.ToList();
+            return await context.Rooms.ToListAsync();
+        }
+
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            using var context = DbContextInstance;
+            return await context.Users
+                .Include(u => u.Reservations)
+                .ToListAsync();
         }
 
         #endregion
 
         #region Private Members
+
+        private async Task<User> GetUserByNameAsync(string username)
+        {
+            using var context = DbContextInstance;
+            return await context.Users
+                .Include(user => user.Reservations)
+                .FirstOrDefaultAsync(user => user.Username.Equals(username));
+        }
 
         private ILogger Logger { get; }
         private IDatabaseConfiguration DatabaseConfiguration { get; set; }

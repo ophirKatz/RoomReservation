@@ -1,15 +1,16 @@
 ﻿using Autofac;
-using Server.Services;
-using Server.Services.DataAccess;
+using Common.Extensions;
+using System.Reflection;
 
 namespace Server.Modules
 {
-    class ServiceModule : Module
+    class ServiceModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DataAccessService>()
-                .As<IDataAccessService>();
+            var assembly = Assembly.GetExecutingAssembly();
+            builder.RegisterAllBySuffix(assembly, "Service");
+            builder.RegisterAllBySuffix(assembly, "Converter");
         }
     }
 }

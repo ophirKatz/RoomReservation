@@ -48,7 +48,9 @@ namespace Server.Services
         public List<IUserDto> GetAllUsers()
         {
             Logger.Information("Getting all users from db...");
-            return DataAccessService.GetAllUsers()
+            return DataAccessService.GetAllUsersAsync()
+                .GetAwaiter()
+                .GetResult()
                 .Select(user => EntityToDtoConverter.ConvertUserEntity(user))
                 .ToList();
         }

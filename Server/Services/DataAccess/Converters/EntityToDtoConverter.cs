@@ -11,13 +11,13 @@ namespace Server.Services.DataAccess.Converters
     {
         #region Constructor
 
-        public EntityToDtoConverter(Func<string, RoomLocation, int, bool, bool, IRoomDto> roomModelFactory,
-            Func<string, UserClearance, IUserDto> userModelFactory,
-            Func<int, DateTime, DateTime, IRoomDto, IUserDto, UserClearance, IReservationDto> reservationModelFactory)
+        public EntityToDtoConverter(Func<string, RoomLocation, int, bool, bool, IRoomDto> roomDtoFactory,
+            Func<string, UserClearance, IUserDto> userDtoFactory,
+            Func<int, DateTime, DateTime, IRoomDto, IUserDto, UserClearance, IReservationDto> reservationDtoFactory)
         {
-            RoomModelFactory = roomModelFactory;
-            UserModelFactory = userModelFactory;
-            ReservationModelFactory = reservationModelFactory;
+            RoomDtoFactory = roomDtoFactory;
+            UserDtoFactory = userDtoFactory;
+            ReservationDtoFactory = reservationDtoFactory;
         }
 
         #endregion
@@ -32,7 +32,7 @@ namespace Server.Services.DataAccess.Converters
 
         public IRoomDto ConvertRoomEntity(Room room)
         {
-            return RoomModelFactory(room.Description,
+            return RoomDtoFactory(room.Description,
                 new RoomLocation(room.Building, room.Floor, room.Number),
                 room.Capacity,
                 room.HasSpeaker,
@@ -41,31 +41,31 @@ namespace Server.Services.DataAccess.Converters
 
         public IUserDto ConvertUserEntity(User user)
         {
-            var userModel = UserModelFactory(user.Username, user.UserClearance);
-            userModel.RoomReservations = user.Reservations
-                .Select(r => ConvertReservationEntity(r, userModel))
+            var userDto = UserDtoFactory(user.Username, user.UserClearance);
+            userDto.RoomReservations = user.Reservations
+                .Select(r => ConvertReservationEntity(r, userDto))
                 .ToList();
 
-            return userModel;
+            return userDto;
         }
 
         #endregion
 
         #region Private Members
 
-        public IReservationDto ConvertReservationEntity(Reservation reservation, IUserDto userModel)
+        public IReservationDto ConvertReservationEntity(Reservation reservation, IUserDto userDto)
         {
-            return ReservationModelFactory(reservation.Id,
+            return ReservationDtoFactory(reservation.Id,
                 reservation.StartTime,
                 reservation.EndTime,
                 ConvertRoomEntity(reservation.Room),
-                userModel,
+                userDto,
                 reservation.RequiredClearance);
         }
 
-        private Func<string, RoomLocation, int, bool, bool, IRoomDto> RoomModelFactory { get; }
-        private Func<string, UserClearance, IUserDto> UserModelFactory { get; }
-        private Func<int, DateTime, DateTime, IRoomDto, IUserDto, UserClearance, IReservationDto> ReservationModelFactory { get; }
+        private Func<string, RoomLocation, int, bool, bool, IRoomDto> RoomDtoFactory { get; }
+        private Func<string, UserClearance, IUserDto> UserDtoFactory { get; }
+        private Func<int, DateTime, DateTime, IRoomDto, IUserDto, UserClearance, IReservationDto> ReservationDtoFactory { get; }
 
         #endregion
     }

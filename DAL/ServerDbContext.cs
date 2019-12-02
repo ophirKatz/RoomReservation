@@ -60,6 +60,7 @@ namespace DAL
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Username).IsRequired();
                 entity.Property(d => d.UserClearance).IsRequired();
+                entity.HasMany(u => u.Reservations).WithOne(r => r.Initiator);
             });
 
             modelBuilder.Entity<Reservation>(entity =>

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Server.Hubs;
 using Server.Modules;
+using System.Reflection;
 
 namespace Server.Server
 {
@@ -29,8 +30,7 @@ namespace Server.Server
         {
             #region Register Modules
 
-            builder.RegisterModule<ServiceModule>();
-            builder.RegisterModule<ConfigurationModule>();
+            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
 
             #endregion
 
@@ -60,7 +60,7 @@ namespace Server.Server
             app.UseRouting();
             app.UseEndpoints(routeBuilder =>
             {
-                routeBuilder.MapHub<RoomReservationHub>(nameof(RoomReservationHub));
+                routeBuilder.MapHub<RoomReservationHub>($"/{nameof(RoomReservationHub)}");
             });
         }
     }
