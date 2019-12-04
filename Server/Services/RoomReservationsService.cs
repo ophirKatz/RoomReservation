@@ -25,33 +25,33 @@ namespace Server.Services
 
         #region Implementation of IRoomReservationsService
 
-        public List<IRoomDto> GetAllAvailableRooms()
+        public List<RoomDto> GetAllAvailableRooms()
         {
             throw new NotImplementedException();
         }
 
-        public List<IRoomDto> GetAllAvailableRooms(DateTime startTime)
+        public List<RoomDto> GetAllAvailableRooms(DateTime startTime)
         {
             throw new NotImplementedException();
         }
 
-        public List<IRoomDto> GetAllAvailableRooms(DateTime startTime, DateTime endTime)
+        public List<RoomDto> GetAllAvailableRooms(DateTime startTime, DateTime endTime)
         {
             throw new NotImplementedException();
         }
 
-        public List<IRoomDto> GetAllRooms()
+        public List<RoomDto> GetAllRooms()
         {
             throw new NotImplementedException();
         }
 
-        public List<IUserDto> GetAllUsers()
+        public List<UserDto> GetAllUsers()
         {
             Logger.Information("Getting all users from db...");
-            return DataAccessService.GetAllUsersAsync()
+            var users = DataAccessService.GetAllUsersAsync()
                 .GetAwaiter()
-                .GetResult()
-                .Select(user => EntityToDtoConverter.ConvertUserEntity(user))
+                .GetResult();
+            return users.Select(user => EntityToDtoConverter.ConvertUserEntity(user))
                 .ToList();
         }
 

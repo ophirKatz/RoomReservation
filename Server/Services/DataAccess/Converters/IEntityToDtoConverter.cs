@@ -5,8 +5,8 @@ namespace Server.Services.DataAccess.Converters
 {
     public interface IEntityToDtoConverter
     {
-        IRoomDto ConvertRoomEntity(Room room);
-        IUserDto ConvertUserEntity(User user);
-        IReservationDto ConvertReservationEntity(Reservation reservation);
+        RoomDto ConvertRoomEntity(Room room);
+        UserDto ConvertUserEntity(User user);
+        ReservationDto ConvertReservationEntity(Reservation reservation);
     }
 }

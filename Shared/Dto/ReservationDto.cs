@@ -4,11 +4,15 @@ using System;
 
 namespace Common.Dto
 {
-    public class ReservationDto : IReservationDto
+    public class ReservationDto
     {
-        #region Constructor
+        #region Constructor(s)
 
-        public ReservationDto(int id, DateTime startTime, DateTime endTime, IRoomDto room, IUserDto userModel, UserClearance requiredClearance)
+        public ReservationDto()
+        {
+        }
+
+        public ReservationDto(int id, DateTime startTime, DateTime endTime, RoomDto room, UserDto userModel, UserClearance requiredClearance)
         {
             Id = id;
             StartTime = startTime;
@@ -20,17 +24,13 @@ namespace Common.Dto
 
         #endregion
 
-        #region Implementation of IReservationModel
-
         public int Id { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public TimeSpan TimeSpan => EndTime.Subtract(StartTime);
-        public IRoomDto Room { get; set; }
-        public IUserDto Initiator { get; set; }
+        public RoomDto Room { get; set; }
+        public UserDto Initiator { get; set; }
         public UserClearance RequiredClearance { get; set; }
-
-        #endregion
 
         public override string ToString()
         {

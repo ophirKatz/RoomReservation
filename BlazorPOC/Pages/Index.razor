@@ -20,7 +20,7 @@
                 <BlazorPOC.Components.Alert Type=@Data.AlertType.Info />
                 <BlazorPOC.Components.Alert Type=@Data.AlertType.Success />
                 <BlazorPOC.Components.Alert Type=@Data.AlertType.Warning />
-                <BlazorPOC.Components.TimedToast Message="Hello"/>
+                <BlazorPOC.Components.TimedToast Message="Hello" />
                 <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
             </td>
             <td>
@@ -35,6 +35,13 @@
                         }
                     </ContentTemplate>
                 </BlazorPOC.Components.GenericList>
+                <button @onclick="Get">
+                    Click to call hub method:
+                    @if (Users != null)
+                    {
+                        @Users.Count()
+                    }
+                </button>
             </td>
         </tr>
     </tbody>
@@ -44,11 +51,15 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        Users = ServerProxy.GetAllUsers();
         await Task.Delay(2000)
             .ContinueWith(_ => NumArray = new[] { 1, 2, 3, 4, 5 });
     }
 
-    private List<IUserDto> Users { get; set; }
+    private async Task Get()
+    {
+        Users = await ServerProxy.GetAllUsers();
+    }
+
+    private List<UserDto> Users { get; set; }
     private IEnumerable<int> NumArray { get; set; }
 }

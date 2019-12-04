@@ -3,6 +3,7 @@ using Common.Dto;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlazorPOC.Client
 {
@@ -11,24 +12,22 @@ namespace BlazorPOC.Client
         public ServerProxy(HubConnection connection)
         {
             Connection = connection;
-            Connection.StartAsync();
+            Connection.StartAsync().Wait();
         }
 
-        public List<IUserDto> GetAllUsers()
+        public async Task<List<UserDto>> GetAllUsers()
         {
             try
             {
-                return Connection.InvokeAsync<List<IUserDto>>(nameof(IRoomReservationHub.GetAllUsers))
-                    .ConfigureAwait(false)
-                    .GetAwaiter()
-                    .GetResult();
+                return await Connection.InvokeAsync<List<UserDto>>(nameof(IRoomReservationHub.GetAllUsers))
+                    .ConfigureAwait(false);
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error with executing server method {nameof(IRoomReservationHub.GetAllUsers)}: {e}");
             }
 
-            return null;
+            return await Task.FromResult(new List<UserDto>());
         }
 
         private HubConnection Connection { get; set; }

@@ -17,7 +17,7 @@ namespace Server.Services.DataAccess.Converters
 
         #region Implementation of IDtoToEntityConverter
 
-        public Reservation ConvertReservationDto(IReservationDto reservationDto)
+        public Reservation ConvertReservationDto(ReservationDto reservationDto)
         {
             if (!DataAccessService.TryGetRoomByDescription(reservationDto.Room.Description, out var room))
             {
@@ -39,7 +39,7 @@ namespace Server.Services.DataAccess.Converters
             };
         }
 
-        public Room ConvertRoomDto(IRoomDto roomDto)
+        public Room ConvertRoomDto(RoomDto roomDto)
         {
             return new Room
             {
@@ -53,7 +53,7 @@ namespace Server.Services.DataAccess.Converters
             };
         }
 
-        public User ConvertUserDto(IUserDto userDto)
+        public User ConvertUserDto(UserDto userDto)
         {
             return new User
             {

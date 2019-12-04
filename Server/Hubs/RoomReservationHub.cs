@@ -19,7 +19,7 @@ namespace Server.Hubs
 
         #region Implementation of IRoomReservationHub
 
-        public List<IUserDto> GetAllUsers()
+        public List<UserDto> GetAllUsers()
         {
             return ClientRequestHandler.GetAllUsers();
         }

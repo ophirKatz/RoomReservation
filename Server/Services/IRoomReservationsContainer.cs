@@ -5,8 +5,8 @@ namespace Server.Services
 {
     public interface IRoomReservationsContainer
     {
-        ObservableCollection<IRoomDto> Rooms { get; set; }
-        ObservableCollection<IUserDto> Users { get; set; }
-        ObservableCollection<IReservationDto> Reservations { get; set; }
+        ObservableCollection<RoomDto> Rooms { get; set; }
+        ObservableCollection<UserDto> Users { get; set; }
+        ObservableCollection<ReservationDto> Reservations { get; set; }
     }
 }

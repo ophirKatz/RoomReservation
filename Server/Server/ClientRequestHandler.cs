@@ -20,7 +20,7 @@ namespace Server.Server
 
         #region Implementation of IClientRequestHandler
 
-        public List<IUserDto> GetAllUsers()
+        public List<UserDto> GetAllUsers()
         {
             return RoomReservationsService.GetAllUsers();
         }

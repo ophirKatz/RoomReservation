@@ -6,10 +6,10 @@ namespace Server.Services
 {
     public interface IRoomReservationsService
     {
-        List<IUserDto> GetAllUsers();
-        List<IRoomDto> GetAllRooms();
-        List<IRoomDto> GetAllAvailableRooms();
-        List<IRoomDto> GetAllAvailableRooms(DateTime startTime);
-        List<IRoomDto> GetAllAvailableRooms(DateTime startTime, DateTime endTime);
+        List<UserDto> GetAllUsers();
+        List<RoomDto> GetAllRooms();
+        List<RoomDto> GetAllAvailableRooms();
+        List<RoomDto> GetAllAvailableRooms(DateTime startTime);
+        List<RoomDto> GetAllAvailableRooms(DateTime startTime, DateTime endTime);
     }
 }

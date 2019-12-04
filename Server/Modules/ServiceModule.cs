@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Server.Modules
 {
-    class ServiceModule : Autofac.Module
+    public class ServiceModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {

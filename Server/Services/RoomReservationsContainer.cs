@@ -1,8 +1,5 @@
-﻿using Common.Extensions;
-using Common.Dto;
-using System.Collections.Generic;
+﻿using Common.Dto;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 namespace Server.Services
 {
@@ -12,18 +9,18 @@ namespace Server.Services
 
         public RoomReservationsContainer()
         {
-            Rooms = new ObservableCollection<IRoomDto>();
-            Users = new ObservableCollection<IUserDto>();
-            Reservations = new ObservableCollection<IReservationDto>();
+            Rooms = new ObservableCollection<RoomDto>();
+            Users = new ObservableCollection<UserDto>();
+            Reservations = new ObservableCollection<ReservationDto>();
         }
 
         #endregion
 
         #region Implementation of IRoomReservationsContainer
 
-        public ObservableCollection<IRoomDto> Rooms { get; set; }
-        public ObservableCollection<IUserDto> Users { get; set; }
-        public ObservableCollection<IReservationDto> Reservations { get; set; }
+        public ObservableCollection<RoomDto> Rooms { get; set; }
+        public ObservableCollection<UserDto> Users { get; set; }
+        public ObservableCollection<ReservationDto> Reservations { get; set; }
 
         #endregion
     }

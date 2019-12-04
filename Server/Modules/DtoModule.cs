@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Common.Dto;
-using Common.Extensions;
 
 namespace Server.Modules
 {
@@ -8,7 +7,13 @@ namespace Server.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAllBySuffix(typeof(IRoomDto).Assembly, "Dto");
+            builder.RegisterType<RoomDto>().AsSelf();
+            builder.RegisterType<UserDto>().AsSelf();
+            builder.RegisterType<ReservationDto>().AsSelf();
+            /*var assembly = typeof(RoomDto).Assembly;
+            builder.RegisterAssemblyTypes(assembly)
+                .Where(t => t.Name.EndsWith("Dto"))
+                .AsSelf();*/
         }
     }
 }

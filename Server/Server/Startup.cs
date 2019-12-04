@@ -30,7 +30,10 @@ namespace Server.Server
         {
             #region Register Modules
 
-            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+            builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule<DtoModule>();
+            builder.RegisterModule<ConfigurationModule>();
+            // builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
 
             #endregion
 
@@ -46,7 +49,6 @@ namespace Server.Server
 
             #region Register Server
 
-            builder.RegisterType<RoomReservationHub>().AsSelf();
             builder.RegisterType<ClientRequestHandler>().As<IClientRequestHandler>().SingleInstance();
 
             #endregion

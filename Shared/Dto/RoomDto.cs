@@ -2,9 +2,14 @@
 
 namespace Common.Dto
 {
-    public class RoomDto : IRoomDto
+    public class RoomDto
     {
         #region Constructor(s)
+
+        public RoomDto()
+        {
+
+        }
 
         public RoomDto(string description, RoomLocation location, int capacity, bool hasSpeaker, bool hasComputer)
         {
@@ -17,15 +22,11 @@ namespace Common.Dto
 
         #endregion
 
-        #region Implementation of IRoomModel
-
         public string Description { get; set; }
         public RoomLocation Location { get; set; }
         public int Capacity { get; set; }
         public bool HasSpeaker { get; set; }
         public bool HasComputer { get; set; }
-
-        #endregion
 
         public override string ToString()
         {
