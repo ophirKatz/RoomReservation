@@ -1,15 +1,15 @@
-﻿@using static Styling
-@using Client
+﻿@using Client
 @using Shared.Dto
 @using Shared.Extensions
 @using UI.Localization
 
 @inject IStringResourceManager ResourceManager
+@inject IStylingResourceManager Styling
 
 @inject IServerProxy ServerProxy
 
 <div class="container">
-    <table class="@Styling.Table">
+    <table class="@Styling["Table"]">
         <thead>
             <tr>
                 <th scope="col">@ResourceManager["Username"]</th>

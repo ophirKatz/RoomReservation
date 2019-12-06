@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Shared.Extensions;
+using System.Collections.Generic;
 
 namespace RoomResClient.UI.Localization
 {
@@ -6,9 +7,10 @@ namespace RoomResClient.UI.Localization
     {
         #region Constructor
 
-        public ResourceManager(Dictionary<string, string> stringResourceValues)
+        public ResourceManager(Dictionary<string, string> stringResourceValues,
+            Dictionary<string, string> styles)
         {
-            _stringResourceValues = stringResourceValues;
+            _stringResourceValues = stringResourceValues.CombineWith(styles);
         }
 
         #endregion
