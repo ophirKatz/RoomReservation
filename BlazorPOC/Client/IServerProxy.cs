@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlazorPOC.Client
+namespace RoomResClient.Client
 {
     public interface IServerProxy
     {

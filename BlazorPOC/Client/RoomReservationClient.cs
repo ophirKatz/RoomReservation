@@ -1,6 +1,6 @@
 ﻿using Shared.Communication;
 
-namespace BlazorPOC.Client
+namespace RoomResClient.Client
 {
     public class RoomReservationClient : IRoomReservationClient
     {

@@ -1,4 +1,4 @@
-﻿namespace BlazorPOC.Configuration
+﻿namespace RoomResClient.Configuration
 {
     public class ServerConnectionConfiguration : IServerConnectionConfiguration
     {

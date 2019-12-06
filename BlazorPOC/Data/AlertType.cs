@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace BlazorPOC.Data
+namespace RoomResClient.Data
 {
     public enum AlertType
     {

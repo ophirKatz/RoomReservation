@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using BlazorPOC.Configuration;
+using RoomResClient.Configuration;
 using Microsoft.Extensions.Configuration;
 
-namespace BlazorPOC.Modules
+namespace RoomResClient.Modules
 {
     public class ConfigurationModule : Module
     {

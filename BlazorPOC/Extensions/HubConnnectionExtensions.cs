@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 
-namespace BlazorPOC.Extensions
+namespace RoomResClient.Extensions
 {
     public static class HubConnnectionExtensions
     {

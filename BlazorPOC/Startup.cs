@@ -1,10 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Blazored.Toast;
-using BlazorPOC.Client;
-using BlazorPOC.Configuration;
-using BlazorPOC.Extensions;
-using BlazorPOC.Modules;
+using RoomResClient.Client;
+using RoomResClient.Configuration;
+using RoomResClient.Extensions;
+using RoomResClient.Modules;
 using Shared.Communication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace BlazorPOC
+namespace RoomResClient
 {
     public class Startup
     {

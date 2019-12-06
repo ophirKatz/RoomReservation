@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace BlazorPOC.Extensions
+namespace RoomResClient.Extensions
 {
     public static class MethodInfoExtensions
     {

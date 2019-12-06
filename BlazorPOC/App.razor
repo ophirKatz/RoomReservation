@@ -3,10 +3,10 @@
 
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(BlazorPOC.UI.Layout.MainLayout)" />
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(RoomResClient.UI.Layout.MainLayout)" />
     </Found>
     <NotFound>
-        <LayoutView Layout="@typeof(BlazorPOC.UI.Layout.MainLayout)">
+        <LayoutView Layout="@typeof(RoomResClient.UI.Layout.MainLayout)">
             <p>Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>

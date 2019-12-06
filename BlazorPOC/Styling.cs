@@ -1,4 +1,4 @@
-﻿namespace BlazorPOC
+﻿namespace RoomResClient
 {
     public class Styling
     {
