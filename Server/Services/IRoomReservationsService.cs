@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.Dto;
+using Shared.Dto;
 
 namespace Server.Services
 {

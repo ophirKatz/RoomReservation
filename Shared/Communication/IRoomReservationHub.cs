@@ -1,7 +1,7 @@
-﻿using Common.Dto;
+﻿using Shared.Dto;
 using System.Collections.Generic;
 
-namespace Common.Communication
+namespace Shared.Communication
 {
     public interface IRoomReservationHub
     {

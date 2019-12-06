@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Common.Dto;
+using Shared.Dto;
 
 namespace Server.Modules
 {

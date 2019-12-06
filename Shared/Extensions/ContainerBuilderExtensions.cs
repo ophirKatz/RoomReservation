@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using System.Reflection;
 
-namespace Common.Extensions
+namespace Shared.Extensions
 {
     public static class ContainerBuilderExtensions
     {

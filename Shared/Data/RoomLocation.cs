@@ -1,4 +1,4 @@
-﻿namespace Common.Data
+﻿namespace Shared.Data
 {
     public class RoomLocation
     {

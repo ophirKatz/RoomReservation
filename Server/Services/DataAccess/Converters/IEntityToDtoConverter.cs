@@ -1,4 +1,4 @@
-﻿using Common.Dto;
+﻿using Shared.Dto;
 using DAL.DbEntities;
 
 namespace Server.Services.DataAccess.Converters

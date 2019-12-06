@@ -1,5 +1,5 @@
-﻿using Common.Communication;
-using Common.Dto;
+﻿using Shared.Communication;
+using Shared.Dto;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Common.Extensions
+namespace Shared.Extensions
 {
     public static class TypeExtensions
     {

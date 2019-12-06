@@ -1,7 +1,7 @@
-﻿using Common.Enums;
+﻿using Shared.Enums;
 using EnumsNET;
 
-namespace Common.Dto
+namespace Shared.Dto
 {
     public class UserDto
     {

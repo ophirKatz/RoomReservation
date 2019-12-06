@@ -1,6 +1,6 @@
-﻿using Common.Data;
+﻿using Shared.Data;
 
-namespace Common.Dto
+namespace Shared.Dto
 {
     public class RoomDto
     {

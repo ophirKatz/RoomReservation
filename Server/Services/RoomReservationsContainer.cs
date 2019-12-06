@@ -1,4 +1,4 @@
-﻿using Common.Dto;
+﻿using Shared.Dto;
 using System.Collections.ObjectModel;
 
 namespace Server.Services

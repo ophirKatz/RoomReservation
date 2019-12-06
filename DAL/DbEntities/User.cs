@@ -1,4 +1,4 @@
-﻿using Common.Enums;
+﻿using Shared.Enums;
 using EnumsNET;
 using System.ComponentModel.DataAnnotations.Schema;
 

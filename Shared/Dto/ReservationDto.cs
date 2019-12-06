@@ -1,8 +1,8 @@
-﻿using Common.Enums;
+﻿using Shared.Enums;
 using EnumsNET;
 using System;
 
-namespace Common.Dto
+namespace Shared.Dto
 {
     public class ReservationDto
     {

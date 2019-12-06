@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Common.Enums
+namespace Shared.Enums
 {
     public enum UserClearance
     {

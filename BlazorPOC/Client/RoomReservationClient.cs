@@ -1,4 +1,4 @@
-﻿using Common.Communication;
+﻿using Shared.Communication;
 
 namespace BlazorPOC.Client
 {

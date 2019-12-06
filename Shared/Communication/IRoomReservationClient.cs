@@ -1,4 +1,4 @@
-﻿namespace Common.Communication
+﻿namespace Shared.Communication
 {
     public interface IRoomReservationClient
     {

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Common.Extensions;
+using Shared.Extensions;
 using System.Reflection;
 
 namespace Server.Modules

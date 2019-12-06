@@ -5,7 +5,7 @@ using BlazorPOC.Client;
 using BlazorPOC.Configuration;
 using BlazorPOC.Extensions;
 using BlazorPOC.Modules;
-using Common.Communication;
+using Shared.Communication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;

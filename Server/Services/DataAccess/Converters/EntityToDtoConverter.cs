@@ -1,5 +1,5 @@
-﻿using Common.Data;
-using Common.Dto;
+﻿using Shared.Data;
+using Shared.Dto;
 using DAL.DbEntities;
 
 namespace Server.Services.DataAccess.Converters

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorPOC", "BlazorPOC\Blaz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{FE973FDB-4D92-4FB7-969D-DA9A753A68E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Shared\Common.csproj", "{6270A501-AC1D-425F-A04A-23A85398C2F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{6270A501-AC1D-425F-A04A-23A85398C2F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{733C8CF6-039D-4665-B4D9-1CFCB1FC35B9}"
 	ProjectSection(SolutionItems) = preProject
