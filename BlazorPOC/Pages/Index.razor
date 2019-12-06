@@ -16,15 +16,15 @@
                 <h1>Hello, World!</h1>
 
                 Welcome to your new app.
-                <BlazorPOC.Components.Alert Type=@Data.AlertType.Error />
-                <BlazorPOC.Components.Alert Type=@Data.AlertType.Info />
-                <BlazorPOC.Components.Alert Type=@Data.AlertType.Success />
-                <BlazorPOC.Components.Alert Type=@Data.AlertType.Warning />
-                <BlazorPOC.Components.TimedToast Message="Hello" />
+                <BlazorPOC.UI.Components.Alert Type=@Data.AlertType.Error />
+                <BlazorPOC.UI.Components.Alert Type=@Data.AlertType.Info />
+                <BlazorPOC.UI.Components.Alert Type=@Data.AlertType.Success />
+                <BlazorPOC.UI.Components.Alert Type=@Data.AlertType.Warning />
+                <BlazorPOC.UI.Components.TimedToast Message="Hello" />
                 <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
             </td>
             <td>
-                <BlazorPOC.Components.GenericList Elements=@NumArray>
+                <BlazorPOC.UI.Components.GenericList Elements=@NumArray>
                     <ContentTemplate>
                         @foreach (var i in NumArray)
                         {
@@ -34,7 +34,7 @@
                             <div class="fa-circle"></div>
                         }
                     </ContentTemplate>
-                </BlazorPOC.Components.GenericList>
+                </BlazorPOC.UI.Components.GenericList>
                 <button @onclick="Get">
                     Click to call hub method:
                     @if (Users != null)
@@ -42,7 +42,7 @@
                         @Users.Count()
                     }
                 </button>
-                <BlazorPOC.Components.GenericList Elements=@Users>
+                <BlazorPOC.UI.Components.GenericList Elements=@Users>
                     <ContentTemplate>
                         @foreach (var i in Users)
                         {
@@ -51,9 +51,9 @@
                             </div>
                         }
                     </ContentTemplate>
-                </BlazorPOC.Components.GenericList>
+                </BlazorPOC.UI.Components.GenericList>
 
-                <BlazorPOC.DomainComponents.UsersListView/>
+                <BlazorPOC.UI.DomainComponents.UsersListView/>
             </td>
         </tr>
     </tbody>
