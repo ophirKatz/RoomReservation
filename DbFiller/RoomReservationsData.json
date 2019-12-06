@@ -34,12 +34,12 @@
   "Users": [
     {
       "Id": "1",
-      "Username": "Ofir Katz",
+      "Username": "ofirkatz",
       "UserClearance": "Admin"
     },
     {
       "Id": "2",
-      "Username": "Israel Israeli",
+      "Username": "danielay",
       "UserClearance": "Basic"
     }
   ],

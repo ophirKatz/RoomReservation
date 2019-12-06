@@ -1,0 +1,49 @@
+﻿@using static Styling
+@using Client
+@using Common.Dto
+@using Common.Extensions
+
+@inject IServerProxy ServerProxy
+
+<div class="container">
+    <table class="@Styling.Table">
+        <thead>
+            <tr>
+                <th scope="col">שם משתמש</th>
+                <th scope="col">סיווג</th>
+            </tr>
+            משתמשים
+        </thead>
+        <tbody>
+            <BlazorPOC.Components.GenericList Elements="Users">
+                <ContentTemplate>
+                    @foreach (var user in Users)
+                    {
+                        <tr>
+                            <td>@user.Name</td>
+                            <td>@user.UserClearance.GetDescription()</td>
+                        </tr>
+                    }
+                </ContentTemplate>
+            </BlazorPOC.Components.GenericList>
+        </tbody>
+    </table>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        Users = await ServerProxy.GetAllUsers();
+    }
+    // Listen to user list updates from server (notifications)
+    // OnLoad - get a list of users from the server (preloaded from db)
+    // display all users, formatted in Hebrew, with styling.
+    // Use GenericList
+    // Show username, clearance...
+
+    #region Private Members
+
+    private List<UserDto> Users { get; set; }
+
+    #endregion
+}

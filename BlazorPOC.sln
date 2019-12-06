@@ -15,11 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODO.txt = TODO.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{5F18B7EE-81B4-4E1A-A401-709C4630CB00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{5F18B7EE-81B4-4E1A-A401-709C4630CB00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{288D8377-B7A4-4A45-97A9-5CBFADCD89FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFiller", "DbFiller\DbFiller.csproj", "{66E8DA63-2260-45B1-8415-5B32B04CEBFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFiller", "DbFiller\DbFiller.csproj", "{66E8DA63-2260-45B1-8415-5B32B04CEBFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

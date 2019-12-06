@@ -42,6 +42,18 @@
                         @Users.Count()
                     }
                 </button>
+                <BlazorPOC.Components.GenericList Elements=@Users>
+                    <ContentTemplate>
+                        @foreach (var i in Users)
+                        {
+                            <div>
+                                User: @i.ToString()
+                            </div>
+                        }
+                    </ContentTemplate>
+                </BlazorPOC.Components.GenericList>
+
+                <BlazorPOC.DomainComponents.UsersListView/>
             </td>
         </tr>
     </tbody>

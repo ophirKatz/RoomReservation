@@ -9,7 +9,6 @@ namespace Common.Dto
 
         public UserDto()
         {
-
         }
 
         public UserDto(string name, UserClearance userClearance)
