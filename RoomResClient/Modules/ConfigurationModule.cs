@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using RoomResClient.Configuration;
-using Microsoft.Extensions.Configuration;
 
 namespace RoomResClient.Modules
 {

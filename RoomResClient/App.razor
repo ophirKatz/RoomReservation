@@ -1,7 +1,4 @@
-﻿@* Inject client here, so UI can interact with it freely everywhere else in the app *@
-@inject Shared.Communication.IRoomReservationClient weatherClient
-
-<Router AppAssembly="@typeof(Program).Assembly">
+﻿<Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(RoomResClient.UI.Layout.MainLayout)" />
     </Found>

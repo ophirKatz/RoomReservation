@@ -1,7 +1,7 @@
-﻿using Shared.Communication;
-using Shared.Dto;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Server.Server;
+using Shared.Communication;
+using Shared.Dto;
 using System.Collections.Generic;
 
 namespace Server.Hubs

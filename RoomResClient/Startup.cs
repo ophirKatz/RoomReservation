@@ -1,17 +1,18 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Blazored.Toast;
-using RoomResClient.Client;
-using RoomResClient.Configuration;
-using RoomResClient.Extensions;
-using RoomResClient.Modules;
-using Shared.Communication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RoomResClient.Client;
+using RoomResClient.Configuration;
+using RoomResClient.Extensions;
+using RoomResClient.Modules;
+using Serilog;
+using Shared.Communication;
 
 namespace RoomResClient
 {
@@ -72,6 +73,8 @@ namespace RoomResClient
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            app.ApplicationServices.GetService(typeof(IServerProxy));
         }
 
         #region Private Members
@@ -86,13 +89,22 @@ namespace RoomResClient
 
             #endregion
 
+            #region Register Logger
+
+            builder.Register<ILogger>((c, p) =>
+            {
+                // TODO : add log to file
+                return new LoggerConfiguration().WriteTo.Console().CreateLogger();
+            }).SingleInstance();
+
+            #endregion
+
             #region Register Client
 
             var connection = BuildConnection();
-            builder.RegisterInstance(new ServerProxy(connection)).As<IServerProxy>();
-            builder.RegisterType<RoomReservationClient>().As<IRoomReservationClient>()
-                .SingleInstance()
-                .OnActivated(roomResClient => connection.ConfigureClient<IRoomReservationClient>(roomResClient.Instance));
+            builder.RegisterInstance(connection).As<HubConnection>();
+            builder.RegisterType<ServerProxy>().As<IServerProxy>().SingleInstance();
+            builder.RegisterType<RoomReservationClient>().As<IRoomReservationClient>().SingleInstance();
 
             #endregion
         }
