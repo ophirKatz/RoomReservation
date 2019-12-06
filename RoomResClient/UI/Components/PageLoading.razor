@@ -1,3 +1,7 @@
-﻿<div id=@Guid.NewGuid() class="spinner-border text-warning" role="status">
-    <span class="sr-only">אנא המתן</span>
+﻿@using UI.Localization
+
+@inject IStringResourceManager ResourceManager
+
+<div id=@Guid.NewGuid() class="spinner-border text-warning" role="status">
+    <span class="sr-only">@ResourceManager["PleaseWait"]</span>
 </div>

@@ -1,4 +1,7 @@
 ﻿@using Data
+@using UI.Localization
+
+@inject IStringResourceManager ResourceManager
 
 @typeparam TElement
 
@@ -8,7 +11,7 @@
 }
 else if (!Elements.Any())
 {
-    <Alert Type=AlertType.Warning Message="הנתונים נטענים..." />
+    <Alert Type=AlertType.Warning Message=@ResourceManager["DataIsLoading"] />
 }
 else
 {

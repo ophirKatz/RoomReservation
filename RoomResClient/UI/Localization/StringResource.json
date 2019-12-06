@@ -1,0 +1,10 @@
+﻿{
+  // Component
+  "DataIsLoading": "הנתונים נטענים...",
+  "PleaseWait": "אנא המתן",
+
+  // Users Table
+  "Users": "משתמשים",
+  "Username": "שם משתמש",
+  "UserClearance": "סיווג"
+}

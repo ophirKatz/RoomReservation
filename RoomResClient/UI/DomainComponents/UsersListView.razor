@@ -2,6 +2,9 @@
 @using Client
 @using Shared.Dto
 @using Shared.Extensions
+@using UI.Localization
+
+@inject IStringResourceManager ResourceManager
 
 @inject IServerProxy ServerProxy
 
@@ -9,10 +12,10 @@
     <table class="@Styling.Table">
         <thead>
             <tr>
-                <th scope="col">שם משתמש</th>
-                <th scope="col">סיווג</th>
+                <th scope="col">@ResourceManager["Username"]</th>
+                <th scope="col">@ResourceManager["UserClearance"]</th>
             </tr>
-            משתמשים
+            @ResourceManager["Users"]
         </thead>
         <tbody>
             <RoomResClient.UI.Components.GenericList Elements="Users">

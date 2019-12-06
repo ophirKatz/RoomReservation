@@ -4,3 +4,8 @@
 4. Show reusability of components
 5. Remove bootstrappers, move registrations to startup classes
 6. Integrate styling (fa, bootstrap/bulma)
+
+for localization, i want the following:
+1. suppport local strings for display
+2. support conversion between enum and string
+3. support css classes
