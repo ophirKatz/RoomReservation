@@ -2,6 +2,8 @@
 using Serilog;
 using Server.Services;
 using System.Collections.Generic;
+using Server.Server.Converters;
+using System.Linq;
 
 namespace Server.Server
 {
@@ -10,9 +12,11 @@ namespace Server.Server
         #region Constructor
 
         public ClientRequestHandler(IRoomReservationsService roomReservationsService,
+            IModelToDtoConverter modelToDtoConverter,
             ILogger logger)
         {
             RoomReservationsService = roomReservationsService;
+            ModelToDtoConverter = modelToDtoConverter;
             logger.Information("Started listening to client requests");
         }
 
@@ -22,7 +26,9 @@ namespace Server.Server
 
         public List<UserDto> GetAllUsers()
         {
-            return RoomReservationsService.GetAllUsers();
+            return RoomReservationsService.GetAllUsers()
+                .Select(ModelToDtoConverter.ConvertUserModelToDto)
+                .ToList();
         }
 
         #endregion
@@ -30,6 +36,7 @@ namespace Server.Server
         #region Private Members
 
         private IRoomReservationsService RoomReservationsService { get; }
+        private IModelToDtoConverter ModelToDtoConverter { get; }
 
         #endregion
     }

@@ -30,10 +30,11 @@ namespace Server.Server
         {
             #region Register Modules
 
-            builder.RegisterModule<ServiceModule>();
+            /* builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<DtoModule>();
             builder.RegisterModule<ConfigurationModule>();
-            // builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+            builder.RegisterModule<ModelModule>(); */
+            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
 
             #endregion
 

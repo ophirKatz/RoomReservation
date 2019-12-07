@@ -12,5 +12,6 @@ namespace Server.Services.DataAccess
         Task<List<Reservation>> GetReservationsForRoomAsync(string description);
         Task<List<Room>> GetAllRoomsAsync();
         Task<List<User>> GetAllUsersAsync();
+        Task<List<Reservation>> GetAllReservationsAsync();
     }
 }

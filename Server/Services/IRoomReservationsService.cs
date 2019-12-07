@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Server.Model;
+using System;
 using System.Collections.Generic;
-using Shared.Dto;
 
 namespace Server.Services
 {
     public interface IRoomReservationsService
     {
-        List<UserDto> GetAllUsers();
-        List<RoomDto> GetAllRooms();
-        List<RoomDto> GetAllAvailableRooms();
-        List<RoomDto> GetAllAvailableRooms(DateTime startTime);
-        List<RoomDto> GetAllAvailableRooms(DateTime startTime, DateTime endTime);
+        List<IUserModel> GetAllUsers();
+        List<IRoomModel> GetAllRooms();
+        List<IRoomModel> GetAllAvailableRooms();
+        List<IRoomModel> GetAllAvailableRooms(DateTime startTime);
+        List<IRoomModel> GetAllAvailableRooms(DateTime startTime, DateTime endTime);
     }
 }

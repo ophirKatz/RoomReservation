@@ -84,14 +84,26 @@ namespace Server.Services.DataAccess
 
         public async Task<List<Room>> GetAllRoomsAsync()
         {
+            Logger.Information("Getting all rooms from db");
             using var context = DbContextInstance;
             return await context.Rooms.ToListAsync();
         }
 
         public async Task<List<User>> GetAllUsersAsync()
         {
+            Logger.Information("Getting all users from db");
             using var context = DbContextInstance;
             return await context.Users
+                .ToListAsync();
+        }
+
+        public async Task<List<Reservation>> GetAllReservationsAsync()
+        {
+            Logger.Information("Getting all reservations from db");
+            using var context = DbContextInstance;
+            return await context.RoomReservations
+                .Include(r => r.Room)
+                .Include(r => r.Initiator)
                 .ToListAsync();
         }
 

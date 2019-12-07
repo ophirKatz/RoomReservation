@@ -5,6 +5,8 @@ using Server.Services.DataAccess.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Server.Model;
+using Server.Server.Converters;
 
 namespace Server.Services
 {
@@ -13,45 +15,43 @@ namespace Server.Services
         #region Constructor
 
         public RoomReservationsService(IDataAccessService dataAccessService,
-            ILogger logger,
-            IEntityToDtoConverter entityToDtoConverter)
+            IRoomReservationsContainer roomReservationsContainer,
+            ILogger logger)
         {
             DataAccessService = dataAccessService;
+            RoomReservationsContainer = roomReservationsContainer;
             Logger = logger;
-            EntityToDtoConverter = entityToDtoConverter;
         }
 
         #endregion
 
         #region Implementation of IRoomReservationsService
 
-        public List<RoomDto> GetAllAvailableRooms()
+        public List<IUserModel> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return RoomReservationsContainer.Users.ToList();
         }
 
-        public List<RoomDto> GetAllAvailableRooms(DateTime startTime)
+        public List<IRoomModel> GetAllRooms()
         {
-            throw new NotImplementedException();
+            return RoomReservationsContainer.Rooms.ToList();
         }
 
-        public List<RoomDto> GetAllAvailableRooms(DateTime startTime, DateTime endTime)
+        public List<IRoomModel> GetAllAvailableRooms()
         {
-            throw new NotImplementedException();
+            return GetAllAvailableRooms(DateTime.Now);
         }
 
-        public List<RoomDto> GetAllRooms()
+        public List<IRoomModel> GetAllAvailableRooms(DateTime startTime)
         {
-            throw new NotImplementedException();
+            return GetAllAvailableRooms(startTime, startTime.AddHours(1));
         }
 
-        public List<UserDto> GetAllUsers()
+        public List<IRoomModel> GetAllAvailableRooms(DateTime startTime, DateTime endTime)
         {
-            Logger.Information("Getting all users from db...");
-            var users = DataAccessService.GetAllUsersAsync()
-                .GetAwaiter()
-                .GetResult();
-            return users.Select(user => EntityToDtoConverter.ConvertUserEntity(user))
+            return RoomReservationsContainer.Reservations
+                .Where(reservation => reservation.StartTime > endTime || reservation.EndTime < startTime)
+                .Select(reservation => reservation.Room)
                 .ToList();
         }
 
@@ -60,8 +60,8 @@ namespace Server.Services
         #region Private Members
 
         private IDataAccessService DataAccessService { get; }
+        private IRoomReservationsContainer RoomReservationsContainer { get; }
         private ILogger Logger { get; }
-        private IEntityToDtoConverter EntityToDtoConverter { get; }
 
         #endregion
     }
