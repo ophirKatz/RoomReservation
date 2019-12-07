@@ -24,6 +24,11 @@ namespace Server.Hubs
             return ClientRequestHandler.GetAllUsers();
         }
 
+        public List<RoomDto> GetAllRooms()
+        {
+            return ClientRequestHandler.GetAllRooms();
+        }
+
         #endregion
 
         #region Private Members

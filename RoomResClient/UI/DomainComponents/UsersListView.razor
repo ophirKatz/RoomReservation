@@ -1,7 +1,8 @@
 ﻿@using Client
-@using Shared.Dto
 @using Shared.Extensions
 @using UI.Localization
+@using ViewModel
+@using System.Linq;
 
 @inject IStringResourceManager ResourceManager
 @inject IStylingResourceManager Styling
@@ -11,11 +12,11 @@
 <div class="container">
     <table class="@Styling["Table"]">
         <thead>
+            @ResourceManager["Users"]
             <tr>
                 <th scope="col">@ResourceManager["Username"]</th>
                 <th scope="col">@ResourceManager["UserClearance"]</th>
             </tr>
-            @ResourceManager["Users"]
         </thead>
         <tbody>
             <RoomResClient.UI.Components.GenericList Elements="Users">
@@ -36,7 +37,8 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        Users = await ServerProxy.GetAllUsers();
+        Users = await ServerProxy.GetAllUsers()
+                .ContinueWith(tsk => tsk.Result.Select(dto => (IUserViewModel)new UserViewModel(dto)).ToList());
     }
     // Listen to user list updates from server (notifications)
     // OnLoad - get a list of users from the server (preloaded from db)
@@ -46,7 +48,7 @@
 
     #region Private Members
 
-    private List<UserDto> Users { get; set; }
+    private List<IUserViewModel> Users { get; set; }
 
     #endregion
 }

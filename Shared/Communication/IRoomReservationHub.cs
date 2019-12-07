@@ -7,5 +7,6 @@ namespace Shared.Communication
     {
         // TODO : Add all server requests here
         List<UserDto> GetAllUsers();
+        List<RoomDto> GetAllRooms();
     }
 }

@@ -2,6 +2,10 @@
 {
     public class RoomLocation
     {
+        public RoomLocation()
+        {
+        }
+
         public RoomLocation(string building, int floor, int number)
         {
             Building = building;

@@ -8,5 +8,6 @@ namespace RoomResClient.Client
     {
         // TODO : Add all server proxy calls - these call to the hub methods via HubConnection object
         Task<List<UserDto>> GetAllUsers();
+        Task<List<RoomDto>> GetAllRooms();
     }
 }

@@ -1,0 +1,14 @@
+﻿body {
+}
+
+rtl {
+    direction: rtl
+}
+
+table.result_table {
+    direction: rtl;
+}
+
+table.result_table caption, table.result_table th, table.result_table td {
+    direction: rtl;
+}

@@ -1,8 +1,8 @@
-{
+﻿{
   "Rooms": [
     {
       "Id": "1",
-      "Description": "My Office",
+      "Description": "משרד",
       "Building": "236",
       "Floor": 2,
       "Number": 244,
@@ -12,7 +12,7 @@
     },
     {
       "Id": "2",
-      "Description": "Jenka",
+      "Description": "חדר דיונים ג'נקה",
       "Building": "236",
       "Floor": 4,
       "Number": 450,
@@ -22,7 +22,7 @@
     },
     {
       "Id": "3",
-      "Description": "Sum",
+      "Description": "חדר דיונים SUM",
       "Building": "236",
       "Floor": 2,
       "Number": 260,

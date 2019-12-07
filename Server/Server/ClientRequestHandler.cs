@@ -31,6 +31,13 @@ namespace Server.Server
                 .ToList();
         }
 
+        public List<RoomDto> GetAllRooms()
+        {
+            return RoomReservationsService.GetAllRooms()
+                .Select(ModelToDtoConverter.ConvertRoomModelToDto)
+                .ToList();
+        }
+
         #endregion
 
         #region Private Members

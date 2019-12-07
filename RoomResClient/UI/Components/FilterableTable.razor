@@ -1,0 +1,36 @@
+﻿@using System.Linq;
+@inject UI.Localization.IStylingResourceManager Styling
+
+@typeparam TElement
+
+<table class="@Styling["Table"]">
+    <thead>
+        @TableHeaderTemplate
+    </thead>
+    <tbody>
+        <RoomResClient.UI.Components.GenericList Elements="Elements">
+            <ContentTemplate>
+                @foreach (var element in Elements.Where(item => DisplayElementOptional(item)))
+                {
+                    @TableItemTemplate(element)
+                }
+            </ContentTemplate>
+        </RoomResClient.UI.Components.GenericList>
+    </tbody>
+</table>
+
+@code{
+    [Parameter]
+    public IEnumerable<TElement> Elements { get; set; }
+
+    [Parameter]
+    public RenderFragment TableHeaderTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment<TElement> TableItemTemplate { get; set; }
+
+    [Parameter]
+    public Predicate<TElement> DisplayElement { get; set; }
+
+    private Predicate<TElement> DisplayElementOptional => r => DisplayElement?.Invoke(r) ?? true;
+}

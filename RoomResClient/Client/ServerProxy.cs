@@ -41,6 +41,21 @@ namespace RoomResClient.Client
             return await Task.FromResult(new List<UserDto>());
         }
 
+        public async Task<List<RoomDto>> GetAllRooms()
+        {
+            try
+            {
+                return await Connection.InvokeAsync<List<RoomDto>>(nameof(IRoomReservationHub.GetAllRooms))
+                    .ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Error with executing server method {nameof(IRoomReservationHub.GetAllRooms)}: {e}");
+            }
+
+            return await Task.FromResult(new List<RoomDto>());
+        }
+
         #endregion
 
         #region Private Members

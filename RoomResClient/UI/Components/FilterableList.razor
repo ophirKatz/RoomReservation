@@ -1,0 +1,27 @@
+﻿@using System.Linq;
+
+@typeparam TElement
+
+<GenericList Elements="Elements">
+    <ContentTemplate>
+        <div class="list-group">
+            @foreach (var element in Elements.Where(item => DisplayElementOptional(item)))
+            {
+                @ListItemTemplate(element)
+            }
+        </div>
+    </ContentTemplate>
+</GenericList>
+
+@code{
+    [Parameter]
+    public IEnumerable<TElement> Elements { get; set; }
+
+    [Parameter]
+    public RenderFragment<TElement> ListItemTemplate { get; set; }
+
+    [Parameter]
+    public Predicate<TElement> DisplayElement { get; set; }
+
+    private Predicate<TElement> DisplayElementOptional => r => DisplayElement?.Invoke(r) ?? true;
+}

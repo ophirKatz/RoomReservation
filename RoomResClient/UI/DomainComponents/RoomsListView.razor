@@ -1,0 +1,60 @@
+﻿@using Client
+@using Shared.Extensions
+@using UI.Localization
+@using ViewModel
+@using System.Linq;
+
+@inject IStringResourceManager ResourceManager
+@inject IStylingResourceManager Styling
+
+@inject IServerProxy ServerProxy
+
+<div class="container">
+    <RoomResClient.UI.Components.FilterableTable Elements="Rooms"
+                                                 DisplayElement="roomDisplayPredicate">
+        <TableHeaderTemplate>
+            <tr>
+                <th scope="col">תיאור</th>
+                <th scope="col">מיקום</th>
+                <th scope="col">מכסה</th>
+            </tr>
+        </TableHeaderTemplate>
+        <TableItemTemplate Context="room">
+            <tr>
+                <td>
+                    @room.Description
+                </td>
+                <td>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Building</li>
+                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Floor</li>
+                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Number</li>
+                        </ol>
+                    </nav>
+                </td>
+                <td>
+                    <span class="badge badge-light .octicon-organization">@room.Capacity</span>
+                </td>
+            </tr>
+        </TableItemTemplate>
+    </RoomResClient.UI.Components.FilterableTable>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        AllRooms = await ServerProxy.GetAllRooms()
+                .ContinueWith(tsk => tsk.Result.Select(dto => (IRoomViewModel)new RoomViewModel(dto)).ToList());
+        Rooms = AllRooms;
+    }
+
+    #region Private Members
+
+    private List<IRoomViewModel> Rooms { get; set; }
+    private List<IRoomViewModel> AllRooms { get; set; }
+
+    private Predicate<IRoomViewModel> roomDisplayPredicate = new Predicate<IRoomViewModel>(r => r.Display);
+
+    #endregion
+}

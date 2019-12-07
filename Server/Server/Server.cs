@@ -23,11 +23,6 @@ namespace Server.Server
             var host = Host.CreateDefaultBuilder()
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(ServerHostConfiguration)
-                .ConfigureLogging(logging =>
-                {
-                    logging.AddFilter("Microsoft.AspNetCore.SignalR", LogLevel.Debug);
-                    logging.AddFilter("Microsoft.AspNetCore.Http.Connections", LogLevel.Debug);
-                })
                 .Build();
 
             host.Run();

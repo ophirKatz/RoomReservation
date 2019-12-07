@@ -7,5 +7,6 @@ namespace Server.Server
     {
         // TODO : Add all client commands. This class will be injected with services that can handle these commands
         List<UserDto> GetAllUsers();
+        List<RoomDto> GetAllRooms();
     }
 }
