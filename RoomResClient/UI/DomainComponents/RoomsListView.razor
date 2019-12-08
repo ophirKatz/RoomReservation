@@ -21,25 +21,37 @@
         </TableHeaderTemplate>
         <TableItemTemplate Context="room">
             <tr>
-                <td>
-                    @room.Description
-                </td>
-                <td>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Building</li>
-                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Floor</li>
-                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Number</li>
-                        </ol>
-                    </nav>
-                </td>
-                <td>
-                    <span class="badge badge-light .octicon-organization">@room.Capacity</span>
-                </td>
+                <ContextMenuTrigger MenuId="roomReservationMenu" Data="room">
+                    <td>
+                        @room.Description
+                    </td>
+                    <td>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">@room.Location.Building</li>
+                                <li class="breadcrumb-item active" aria-current="page">@room.Location.Floor</li>
+                                <li class="breadcrumb-item active" aria-current="page">@room.Location.Number</li>
+                            </ol>
+                        </nav>
+                    </td>
+                    <td>
+                        <span class="badge badge-light .octicon-organization">@room.Capacity</span>
+                    </td>
+                </ContextMenuTrigger>
             </tr>
         </TableItemTemplate>
     </RoomResClient.UI.Components.FilterableTable>
 </div>
+
+<ContextMenu Id="roomReservationMenu" Animation="Animation.Grow">
+    <Item>
+        הזמן חדר
+        <SubMenu>
+            <Item OnClick="@ReserveRoom">הזמן עכשיו</Item>
+            <Item OnClick="@ReserveRoom">הזמן מראש</Item>
+        </SubMenu>
+    </Item>
+</ContextMenu>
 
 @code {
     protected override async Task OnInitializedAsync()
@@ -47,6 +59,12 @@
         AllRooms = await ServerProxy.GetAllRooms()
                 .ContinueWith(tsk => tsk.Result.Select(dto => (IRoomViewModel)new RoomViewModel(dto)).ToList());
         Rooms = AllRooms;
+    }
+
+    private void ReserveRoom(ItemClickEventArgs e)
+    {
+        var room = e.Data;
+        Console.WriteLine("Reserve Room on type : " + room.ToString());
     }
 
     #region Private Members
