@@ -58,6 +58,15 @@ namespace RoomResClient.Client
 
         #endregion
 
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            Connection.DisposeAsync().Wait();
+        }
+
+        #endregion
+
         #region Private Members
 
         private HubConnection Connection { get; set; }

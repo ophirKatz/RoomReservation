@@ -1,8 +1,8 @@
-﻿@using Client
-@using Shared.Extensions
-@using UI.Localization
+﻿@using UI.Localization
 @using ViewModel
 @using System.Linq;
+@using UI.DomainComponents.Modals;
+@using Data.EventArgs;
 
 @inject IStringResourceManager ResourceManager
 @inject IStylingResourceManager Styling
@@ -44,14 +44,13 @@
 </div>
 
 <ContextMenu Id="roomReservationMenu" Animation="Animation.Grow">
-    <Item>
-        הזמן חדר
-        <SubMenu>
-            <Item OnClick="@ReserveRoom">הזמן עכשיו</Item>
-            <Item OnClick="@ReserveRoom">הזמן מראש</Item>
-        </SubMenu>
-    </Item>
+    <Item OnClick="@ReserveRoomNow">הזמן עכשיו</Item>
+    <Item OnClick="@ReserveRoomAhead">הזמן מראש</Item>
 </ContextMenu>
+
+<RoomResClient.UI.DomainComponents.Modals.ReservationDialog
+    @ref="reservationDialog"
+    OkCallback="OnMakeReservation"/>
 
 @code {
     protected override async Task OnInitializedAsync()
@@ -61,11 +60,28 @@
         Rooms = AllRooms;
     }
 
-    private void ReserveRoom(ItemClickEventArgs e)
+    private void OnMakeReservation(object obj, MakeReservationEventArgs args)
     {
-        var room = e.Data;
-        Console.WriteLine("Reserve Room on type : " + room.ToString());
+        if (SelectedRoom == null || args == null) return;
+        // TODO : Call reservation service
     }
+
+    #region Context Menu
+
+    private void ReserveRoomNow(ItemClickEventArgs e)
+    {
+        SelectedRoom = e.Data as IRoomViewModel;
+        reservationDialog.ReserveNow();
+        reservationDialog.Show();
+    }
+
+    private void ReserveRoomAhead(ItemClickEventArgs e)
+    {
+        SelectedRoom = e.Data as IRoomViewModel;
+        reservationDialog.Show();
+    }
+
+    #endregion
 
     #region Private Members
 
@@ -73,6 +89,8 @@
     private List<IRoomViewModel> AllRooms { get; set; }
 
     private Predicate<IRoomViewModel> roomDisplayPredicate = new Predicate<IRoomViewModel>(r => r.Display);
+    private ReservationDialog reservationDialog;
+    private IRoomViewModel SelectedRoom { get; set; }
 
     #endregion
 }

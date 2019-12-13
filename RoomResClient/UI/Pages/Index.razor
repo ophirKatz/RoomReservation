@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using Client
 @using Shared.Dto
 @inject IServerProxy ServerProxy
 @inject IToastService ToastService
@@ -42,6 +41,10 @@
                         @Users.Count()
                     }
                 </button>
+
+                <RoomResClient.UI.DomainComponents.RoomsListView />
+                <RoomResClient.UI.DomainComponents.UsersListView />
+
                 <RoomResClient.UI.Components.GenericList Elements=@Users>
                     <ContentTemplate>
                         @foreach (var i in Users)
@@ -52,9 +55,6 @@
                         }
                     </ContentTemplate>
                 </RoomResClient.UI.Components.GenericList>
-
-                <RoomResClient.UI.DomainComponents.UsersListView/>
-                <RoomResClient.UI.DomainComponents.RoomsListView/>
             </td>
         </tr>
     </tbody>
@@ -64,8 +64,7 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(2000)
-            .ContinueWith(_ => NumArray = new[] { 1, 2, 3, 4, 5 });
+        await Task.Delay(2000);
     }
 
     private async Task Get()

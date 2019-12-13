@@ -1,0 +1,83 @@
+﻿@using Shared.Enums;
+@using EnumsNET;
+@using ViewModel;
+@using Data.EventArgs;
+
+<MatDialog @bind-IsOpen="@_isOpen">
+    <MatDialogTitle>הזמן חדר</MatDialogTitle>
+    <MatDialogContent>
+        <h4>זמן התחלה:</h4>
+        <MatDatePicker EnableTime="true" Enable24hours="true" DateFormat="Y-m-d H:i" @bind-Value="@StartTime" />
+
+        <h4>זמן סיום:</h4>
+        <MatDatePicker EnableTime="true" Enable24hours="true" DateFormat="Y-m-d H:i" @bind-Value="@EndTime" />
+
+        <h4>רמת הרשאה:</h4>
+        <MatSelect Label="בחר רמת הרשאה"
+                   Outlined="true"
+                   Enhanced="true"
+                   @bind-Value="RequiredClearance">
+            <MatOptionString Value="@UserClearance.Basic.GetName()">בסיסי</MatOptionString>
+            <MatOptionString Value="@UserClearance.Advanced.GetName()">מתקדם</MatOptionString>
+        </MatSelect>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@Hide">ביטול</MatButton>
+        <MatButton OnClick="@MakeReservation">הזמן</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code {
+    #region Modal & Logic
+
+    private void MakeReservation()
+    {
+        Console.WriteLine("Making a reservation");
+        OkCallback(this, new MakeReservationEventArgs(StartTime, EndTime, Enums.Parse<UserClearance>(RequiredClearance)));
+        ClearAndHide();
+    }
+
+    private void ClearAndHide()
+    {
+        StartTime = null;
+        EndTime = null;
+        RequiredClearance = string.Empty;
+        Hide();
+    }
+
+    #endregion
+
+    #region Dialog Controls
+
+    public void ReserveNow()
+    {
+        StartTime = DateTime.Now;
+    }
+
+    public void Show()
+    {
+        _isOpen = true;
+        StateHasChanged();
+    }
+
+    public void Hide()
+    {
+        _isOpen = false;
+        StateHasChanged();
+    }
+
+    #endregion
+
+    #region Private Members and Parameters
+
+    private DateTime? StartTime { get; set; }
+    private DateTime? EndTime { get; set; }
+    private string RequiredClearance { get; set; }
+
+    private bool _isOpen = false;
+
+    [Parameter]
+    public EventHandler<MakeReservationEventArgs> OkCallback { get; set; }
+
+    #endregion
+}

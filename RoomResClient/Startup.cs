@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Blazored.Modal;
 using Blazored.Toast;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +48,7 @@ namespace RoomResClient
             services.AddServerSideBlazor();
             services.AddSignalR();
             services.AddBlazoredToast();
+            services.AddBlazoredModal();
             services.AddBlazorContextMenu();
         }
 
