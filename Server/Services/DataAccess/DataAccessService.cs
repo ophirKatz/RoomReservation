@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Polly;
 using Polly.Retry;
 using Serilog;
+using Server.Model;
+using Server.Services.DataAccess.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +19,12 @@ namespace Server.Services.DataAccess
         #region Constructor
 
         public DataAccessService(ILogger logger,
-            IDatabaseConfiguration databaseConfiguration)
+            IDatabaseConfiguration databaseConfiguration,
+            IModelToEntityConverter modelToEntityConverter)
         {
             Logger = logger;
             DatabaseConfiguration = databaseConfiguration;
-
+            ModelToEntityConverter = modelToEntityConverter;
             Logger.DatabaseConfigured(DatabaseConfiguration);
 
             RetryPolicy = Policy.Handle<Exception>()
@@ -107,6 +110,19 @@ namespace Server.Services.DataAccess
                 .ToListAsync();
         }
 
+        public async Task<bool> SaveReservation(IReservationModel reservationModel)
+        {
+            Logger.Information("Saving a new reservation to the DB: {reservation}", reservationModel);
+            var reservation = ModelToEntityConverter.ConvertReservationModel(reservationModel);
+
+            using var context = DbContextInstance;
+            context.RoomReservations.Add(reservation);
+            await RetryPolicy.ExecuteAsync(async () => await context.SaveChangesAsync());
+
+            Logger.Information("Saved a new reservation to the DB: {reservation}", reservationModel);
+            return true;
+        }
+
         #endregion
 
         #region Private Members
@@ -120,6 +136,7 @@ namespace Server.Services.DataAccess
 
         private ILogger Logger { get; }
         private IDatabaseConfiguration DatabaseConfiguration { get; set; }
+        private IModelToEntityConverter ModelToEntityConverter { get; }
         private AsyncRetryPolicy RetryPolicy { get; set; }
 
         private ServerDbContext DbContextInstance

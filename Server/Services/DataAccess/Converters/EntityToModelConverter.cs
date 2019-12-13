@@ -8,9 +8,6 @@ namespace Server.Services.DataAccess.Converters
     {
         #region Constructor
 
-        /*public EntityToModelConverter(Func<string, RoomLocation, int, bool, bool, IRoomModel> roomModelFactory,
-            Func<string, UserClearance, IUserModel> userModelFactory,
-            Func<int, DateTime, DateTime, IRoomModel, IUserModel, UserClearance, IReservationModel> reservationModelFactory)*/
         public EntityToModelConverter(IRoomModel.Factory roomModelFactory,
             IUserModel.Factory userModelFactory,
             IReservationModel.Factory reservationModelFactory)

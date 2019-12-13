@@ -56,6 +56,22 @@ namespace RoomResClient.Client
             return await Task.FromResult(new List<RoomDto>());
         }
 
+        public async Task<bool> AddNewReservation(ReservationDetails reservationDetails, string username, string roomDescription)
+        {
+            try
+            {
+                return await Connection.InvokeAsync<bool>(nameof(IRoomReservationHub.AddNewReservation),
+                    reservationDetails, username, roomDescription)
+                    .ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Error with executing server method {nameof(IRoomReservationHub.AddNewReservation)}: {e}");
+            }
+
+            return false;
+        }
+
         #endregion
 
         #region Implementation of IDisposable

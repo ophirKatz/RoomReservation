@@ -8,5 +8,6 @@ namespace Shared.Communication
         // TODO : Add all server requests here
         List<UserDto> GetAllUsers();
         List<RoomDto> GetAllRooms();
+        bool AddNewReservation(ReservationDetails reservationDetails, string username, string roomDescription);
     }
 }

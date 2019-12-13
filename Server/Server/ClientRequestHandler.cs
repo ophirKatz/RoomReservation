@@ -38,6 +38,13 @@ namespace Server.Server
                 .ToList();
         }
 
+        public bool AddNewReservation(ReservationDetails reservationDetails, string username, string roomDescription)
+        {
+            return RoomReservationsService.AddNewReservation(reservationDetails,
+                username,
+                roomDescription);
+        }
+
         #endregion
 
         #region Private Members

@@ -15,26 +15,27 @@ namespace Shared.Dto
         public ReservationDto(int id, DateTime startTime, DateTime endTime, RoomDto room, UserDto userModel, UserClearance requiredClearance)
         {
             Id = id;
-            StartTime = startTime;
-            EndTime = endTime;
+            Details = new ReservationDetails
+            {
+                StartTime = startTime,
+                EndTime = endTime,
+                RequiredClearance = requiredClearance
+            };
             Room = room;
             Initiator = userModel;
-            RequiredClearance = requiredClearance;
         }
 
         #endregion
 
         public int Id { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public TimeSpan TimeSpan => EndTime.Subtract(StartTime);
+        public ReservationDetails Details { get; set; }
+        public TimeSpan TimeSpan => Details.EndTime.Subtract(Details.StartTime);
         public RoomDto Room { get; set; }
         public UserDto Initiator { get; set; }
-        public UserClearance RequiredClearance { get; set; }
 
         public override string ToString()
         {
-            return $"{nameof(StartTime)}: {StartTime}, {nameof(EndTime)}: {EndTime}, {nameof(Room)}: {Room}, {nameof(Initiator)}: {Initiator}, {nameof(RequiredClearance)}: {RequiredClearance.GetName()}";
+            return $"{nameof(Details)}: {Details}, {nameof(Room)}: {Room}, {nameof(Initiator)}: {Initiator}";
         }
     }
 }

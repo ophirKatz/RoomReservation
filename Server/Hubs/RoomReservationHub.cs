@@ -29,6 +29,11 @@ namespace Server.Hubs
             return ClientRequestHandler.GetAllRooms();
         }
 
+        public bool AddNewReservation(ReservationDetails reservationDetails, string username, string roomDescription)
+        {
+            return ClientRequestHandler.AddNewReservation(reservationDetails, username, roomDescription);
+        }
+
         #endregion
 
         #region Private Members

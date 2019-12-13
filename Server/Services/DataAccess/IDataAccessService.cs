@@ -1,4 +1,5 @@
 ﻿using DAL.DbEntities;
+using Server.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,5 +14,6 @@ namespace Server.Services.DataAccess
         Task<List<Room>> GetAllRoomsAsync();
         Task<List<User>> GetAllUsersAsync();
         Task<List<Reservation>> GetAllReservationsAsync();
+        Task<bool> SaveReservation(IReservationModel reservationModel);
     }
 }

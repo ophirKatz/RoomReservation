@@ -1,7 +1,6 @@
 ﻿using Server.Model;
 using Server.Services.DataAccess;
 using Server.Services.DataAccess.Converters;
-using Shared.Dto;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -38,6 +37,18 @@ namespace Server.Services
         public ObservableCollection<IRoomModel> Rooms { get; set; }
         public ObservableCollection<IUserModel> Users { get; set; }
         public ObservableCollection<IReservationModel> Reservations { get; set; }
+
+        public bool UserExists(string username, out IUserModel userModel)
+        {
+            userModel = Users.FirstOrDefault(u => Equals(u.Name, username));
+            return userModel != null;
+        }
+
+        public bool RoomExists(string description, out IRoomModel roomModel)
+        {
+            roomModel = Rooms.FirstOrDefault(r => Equals(r.Description, description));
+            return roomModel != null;
+        }
 
         #endregion
 
