@@ -23,38 +23,8 @@
                 <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
             </td>
             <td>
-                <RoomResClient.UI.Components.GenericList Elements=@NumArray>
-                    <ContentTemplate>
-                        @foreach (var i in NumArray)
-                        {
-                            <div>
-                                <button class="btn btn-primary">Number: @i</button>
-                            </div>
-                            <div class="fa-circle"></div>
-                        }
-                    </ContentTemplate>
-                </RoomResClient.UI.Components.GenericList>
-                <button @onclick="Get">
-                    Click to call hub method:
-                    @if (Users != null)
-                    {
-                        @Users.Count()
-                    }
-                </button>
-
                 <RoomResClient.UI.DomainComponents.RoomsListView />
                 <RoomResClient.UI.DomainComponents.UsersListView />
-
-                <RoomResClient.UI.Components.GenericList Elements=@Users>
-                    <ContentTemplate>
-                        @foreach (var i in Users)
-                        {
-                            <div>
-                                User: @i.ToString()
-                            </div>
-                        }
-                    </ContentTemplate>
-                </RoomResClient.UI.Components.GenericList>
             </td>
         </tr>
     </tbody>

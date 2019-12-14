@@ -35,7 +35,7 @@ namespace RoomResClient.Client
             }
             catch (Exception e)
             {
-                Logger.Error($"Error with executing server method {nameof(IRoomReservationHub.GetAllUsers)}: {e}");
+                Logger.Error(e, $"Error with executing server method {nameof(IRoomReservationHub.GetAllUsers)}");
             }
 
             return await Task.FromResult(new List<UserDto>());
@@ -50,7 +50,7 @@ namespace RoomResClient.Client
             }
             catch (Exception e)
             {
-                Logger.Error($"Error with executing server method {nameof(IRoomReservationHub.GetAllRooms)}: {e}");
+                Logger.Error(e, $"Error with executing server method {nameof(IRoomReservationHub.GetAllRooms)}");
             }
 
             return await Task.FromResult(new List<RoomDto>());
@@ -66,7 +66,7 @@ namespace RoomResClient.Client
             }
             catch (Exception e)
             {
-                Logger.Error($"Error with executing server method {nameof(IRoomReservationHub.AddNewReservation)}: {e}");
+                Logger.Error(e, $"Error with executing server method {nameof(IRoomReservationHub.AddNewReservation)}");
             }
 
             return false;

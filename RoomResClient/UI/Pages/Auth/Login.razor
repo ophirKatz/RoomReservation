@@ -1,0 +1,53 @@
+﻿@page "/login"
+
+@using RoomResClient.Client.Services;
+@using Microsoft.AspNetCore.Components;
+@using Shared.Dto.Auth.Request;
+
+@inject IMatToaster Toaster;
+
+<EditForm Model="loginData" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <p>
+        <MatTextField Label="@nameof(loginData.Username)" @bind-Value="loginData.Username" />
+        <ValidationMessage For="@(() => loginData.Username)" />
+    </p>
+    <p>
+        <MatTextField Label="@nameof(loginData.Password)" @bind-Value="loginData.Password" Type="password" />
+        <ValidationMessage For="@(() => loginData.Password)" />
+    </p>
+
+    <MatButton Type="submit" Raised="true">התחבר</MatButton>
+</EditForm>
+
+@code {
+    [Inject] private IUserAuthService UserAuthService { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("Login page");
+    }
+
+    LoginData loginData = new LoginData();
+
+    private async Task HandleLogin()
+    {
+        var result = await UserAuthService.Login(loginData);
+
+        if (result.Result == Shared.Enums.AuthResult.Success)
+        {
+            Toaster.Add("התחברת בהצלחה", MatToastType.Success);
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            Toaster.Add(result.Error ?? string.Empty, MatToastType.Warning, "ההתחברות נכשלה");
+        }
+    }
+
+    private void OnLoginSuccess()
+    {
+
+    }
+}

@@ -41,25 +41,31 @@ namespace RoomResClient
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages()
-                .AddRazorPagesOptions(options =>
-                {
-                    options.RootDirectory = "/UI/Pages";
-                });
             services.AddServerSideBlazor();
             services.AddSignalR();
-            services.AddBlazoredToast();
-            services.AddBlazoredModal();
-            services.AddBlazorContextMenu();
-            services.AddMatToaster(config =>
+            services.AddAuthorizationCore();
+            AddUiServices();
+
+            void AddUiServices()
             {
-                config.Position = MatToastPosition.TopLeft;
-                config.PreventDuplicates = false;
-                config.NewestOnTop = true;
-                config.ShowCloseButton = true;
-                config.MaximumOpacity = 95;
-                config.VisibleStateDuration = 3000;
-            });
+                services.AddRazorPages()
+                    .AddRazorPagesOptions(options =>
+                    {
+                        options.RootDirectory = "/UI/Pages";
+                    });
+                services.AddBlazoredToast();
+                services.AddBlazoredModal();
+                services.AddBlazorContextMenu();
+                services.AddMatToaster(config =>
+                {
+                    config.Position = MatToastPosition.TopLeft;
+                    config.PreventDuplicates = false;
+                    config.NewestOnTop = true;
+                    config.ShowCloseButton = true;
+                    config.MaximumOpacity = 95;
+                    config.VisibleStateDuration = 3000;
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +87,9 @@ namespace RoomResClient
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
@@ -98,7 +107,7 @@ namespace RoomResClient
         {
             #region Register Modules
 
-            builder.RegisterModule<ConfigurationModule>();
+            builder.RegisterAssemblyModules(typeof(Startup).Assembly);
 
             #endregion
 
