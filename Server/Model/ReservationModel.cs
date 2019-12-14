@@ -34,7 +34,7 @@ namespace Server.Model
 
         public override string ToString()
         {
-            return $"{nameof(StartTime)}: {StartTime}, {nameof(EndTime)}: {EndTime}, {nameof(Room)}: {Room}, {nameof(Initiator)}: {Initiator}, {nameof(RequiredClearance)}: {RequiredClearance.GetName()}";
+            return $"{nameof(StartTime)}: {StartTime}, {nameof(EndTime)}: {EndTime}, {nameof(Room)}: {Room.Description}, {nameof(Initiator)}: {Initiator.Name}, {nameof(RequiredClearance)}: {RequiredClearance.GetName()}";
         }
     }
 }

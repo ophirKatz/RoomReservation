@@ -34,14 +34,6 @@
     {
         Console.WriteLine("Making a reservation");
         OkCallback(this, new MakeReservationEventArgs(StartTime, EndTime, Enums.Parse<UserClearance>(RequiredClearance)));
-        ClearAndHide();
-    }
-
-    private void ClearAndHide()
-    {
-        StartTime = null;
-        EndTime = null;
-        RequiredClearance = string.Empty;
         Hide();
     }
 
@@ -62,6 +54,9 @@
 
     public void Hide()
     {
+        StartTime = null;
+        EndTime = null;
+        RequiredClearance = string.Empty;
         _isOpen = false;
         StateHasChanged();
     }

@@ -1,4 +1,5 @@
-﻿using Shared.Enums;
+﻿using EnumsNET;
+using Shared.Enums;
 using System;
 
 namespace Shared.Dto

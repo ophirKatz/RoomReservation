@@ -27,7 +27,7 @@ namespace Server.Services.DataAccess
             ModelToEntityConverter = modelToEntityConverter;
             Logger.DatabaseConfigured(DatabaseConfiguration);
 
-            RetryPolicy = Policy.Handle<Exception>()
+            RetryPolicy = Policy.Handle<DbUpdateConcurrencyException>()
                 .RetryForeverAsync((e, i, c) => Logger.Information($"Error: {e} on retry #{i}."));
         }
 
@@ -113,7 +113,12 @@ namespace Server.Services.DataAccess
         public async Task<bool> SaveReservation(IReservationModel reservationModel)
         {
             Logger.Information("Saving a new reservation to the DB: {reservation}", reservationModel);
-            var reservation = ModelToEntityConverter.ConvertReservationModel(reservationModel);
+            var reservation = ModelToEntityConverter.ConvertReservationModel(this, reservationModel);
+            if (reservation == null)
+            {
+                Logger.Error("Failed to convert reservation model: {reservation}", reservationModel);
+                return false;
+            }
 
             using var context = DbContextInstance;
             context.RoomReservations.Add(reservation);

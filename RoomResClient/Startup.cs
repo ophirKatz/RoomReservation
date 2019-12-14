@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Blazored.Modal;
 using Blazored.Toast;
+using MatBlazor;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -50,6 +51,15 @@ namespace RoomResClient
             services.AddBlazoredToast();
             services.AddBlazoredModal();
             services.AddBlazorContextMenu();
+            services.AddMatToaster(config =>
+            {
+                config.Position = MatToastPosition.TopLeft;
+                config.PreventDuplicates = false;
+                config.NewestOnTop = true;
+                config.ShowCloseButton = true;
+                config.MaximumOpacity = 95;
+                config.VisibleStateDuration = 3000;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

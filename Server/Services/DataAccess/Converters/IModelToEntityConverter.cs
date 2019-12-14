@@ -7,6 +7,6 @@ namespace Server.Services.DataAccess.Converters
     {
         Room ConvertRoomModel(IRoomModel roomModel);
         User ConvertUserModel(IUserModel userModel);
-        Reservation ConvertReservationModel(IReservationModel reservationModel);
+        Reservation ConvertReservationModel(IDataAccessService dataAccessService, IReservationModel reservationModel);
     }
 }

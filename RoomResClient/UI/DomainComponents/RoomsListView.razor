@@ -8,6 +8,7 @@
 @inject IStylingResourceManager Styling
 
 @inject IServerProxy ServerProxy
+@inject IMatToaster Toaster
 
 <div class="container">
     <RoomResClient.UI.Components.FilterableTable Elements="Rooms"
@@ -48,9 +49,8 @@
     <Item OnClick="@ReserveRoomAhead">הזמן מראש</Item>
 </ContextMenu>
 
-<RoomResClient.UI.DomainComponents.Modals.ReservationDialog
-    @ref="reservationDialog"
-    OkCallback="OnMakeReservation"/>
+<RoomResClient.UI.DomainComponents.Modals.ReservationDialog @ref="reservationDialog"
+                                                            OkCallback="OnMakeReservation" />
 
 @code {
     protected override async Task OnInitializedAsync()
@@ -60,10 +60,22 @@
         Rooms = AllRooms;
     }
 
-    private void OnMakeReservation(object obj, MakeReservationEventArgs args)
+    private async void OnMakeReservation(object obj, MakeReservationEventArgs args)
     {
         if (SelectedRoom == null || args == null) return;
-        // TODO : Call reservation service
+        var details = new Shared.Dto.ReservationDetails
+        {
+            StartTime = args.StartTime,
+            EndTime = args.EndTime,
+            RequiredClearance = args.RequiredClearance
+        };
+        var result = await ServerProxy.AddNewReservation(details, "ofirkatz", SelectedRoom.Description);
+        if (!result)
+        {
+            Toaster.Add(string.Format("זימון חדר {0} נכשל", SelectedRoom.Description), MatToastType.Warning, "זימון חדר");
+            return;
+        }
+        Toaster.Add(string.Format("זימון חדר {0} הסתיים בהצלחה", SelectedRoom.Description), MatToastType.Success, "זימון חדר");
     }
 
     #region Context Menu

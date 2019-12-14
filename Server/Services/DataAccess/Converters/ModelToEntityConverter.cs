@@ -5,36 +5,25 @@ namespace Server.Services.DataAccess.Converters
 {
     public class ModelToEntityConverter : IModelToEntityConverter
     {
-        #region Constructor
-
-        public ModelToEntityConverter(IDataAccessService dataAccessService)
-        {
-            DataAccessService = dataAccessService;
-        }
-
-        #endregion
-
         #region Implementation of IDtoToEntityConverter
 
-        public Reservation ConvertReservationModel(IReservationModel reservationModel)
+        public Reservation ConvertReservationModel(IDataAccessService dataAccessService, IReservationModel reservationModel)
         {
-            if (!DataAccessService.TryGetRoomByDescription(reservationModel.Room.Description, out var room))
+            if (!dataAccessService.TryGetRoomByDescription(reservationModel.Room.Description, out var room) ||
+                !dataAccessService.TryGetUserByName(reservationModel.Initiator.Name, out var user))
             {
-                room = ConvertRoomModel(reservationModel.Room);
+                return null;
             }
-
-            if (!DataAccessService.TryGetUserByName(reservationModel.Initiator.Name, out var user))
-            {
-                user = ConvertUserModel(reservationModel.Initiator);
-            }
+            var roomId = room.Id;
+            var initiatorId = user.Id;
 
             return new Reservation
             {
                 StartTime = reservationModel.StartTime,
                 EndTime = reservationModel.EndTime,
                 RequiredClearance = reservationModel.RequiredClearance,
-                Room = room,
-                Initiator = user
+                RoomId = roomId,
+                InitiatorId = initiatorId
             };
         }
 
@@ -60,12 +49,6 @@ namespace Server.Services.DataAccess.Converters
                 UserClearance = userModel.UserClearance
             };
         }
-
-        #endregion
-
-        #region Private Members
-
-        public IDataAccessService DataAccessService { get; }
 
         #endregion
     }
