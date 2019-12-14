@@ -2,33 +2,43 @@
 @using EnumsNET;
 @using ViewModel;
 @using Data.EventArgs;
+@using UI.Localization;
+
+@inject IStringResourceManager StringResource
 
 <MatDialog @bind-IsOpen="@_isOpen">
     <MatDialogTitle>הזמן חדר</MatDialogTitle>
     <MatDialogContent>
         <h4>זמן התחלה:</h4>
-        <MatDatePicker EnableTime="true" Enable24hours="true" DateFormat="Y-m-d H:i" @bind-Value="@StartTime" />
+        <MatDatePicker EnableTime="true" Enable24hours="true" DateFormat="Y-m-d H:i" Value="StartTime"/>
 
         <h4>זמן סיום:</h4>
-        <MatDatePicker EnableTime="true" Enable24hours="true" DateFormat="Y-m-d H:i" @bind-Value="@EndTime" />
+        <MatDatePicker EnableTime="true" Enable24hours="true" DateFormat="Y-m-d H:i" Value="EndTime"/>
 
         <h4>רמת הרשאה:</h4>
         <MatSelect Label="בחר רמת הרשאה"
                    Outlined="true"
                    Enhanced="true"
                    @bind-Value="RequiredClearance">
-            <MatOptionString Value="@UserClearance.Basic.GetName()">בסיסי</MatOptionString>
-            <MatOptionString Value="@UserClearance.Advanced.GetName()">מתקדם</MatOptionString>
+            @foreach (var clearance in Enums.GetValues<UserClearance>().Where(v => v != UserClearance.Admin))
+            {
+                <MatOptionString Value="@clearance.GetName()">@StringResource[clearance.GetName()]</MatOptionString>
+            }
         </MatSelect>
     </MatDialogContent>
     <MatDialogActions>
-        <MatButton OnClick="@Hide">ביטול</MatButton>
-        <MatButton OnClick="@MakeReservation">הזמן</MatButton>
+        <MatButton OnClick="@MakeReservation" Outlined="true">הזמן</MatButton>
+        <MatButton OnClick="@Hide" Outlined="true">ביטול</MatButton>
     </MatDialogActions>
 </MatDialog>
 
 @code {
     #region Modal & Logic
+
+    private void OnStartInput(ChangeEventArgs args)
+    {
+        StartTime = (DateTime?) args.Value;
+    }
 
     private void MakeReservation()
     {

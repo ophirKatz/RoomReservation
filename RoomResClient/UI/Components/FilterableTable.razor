@@ -12,7 +12,9 @@
             <ContentTemplate>
                 @foreach (var element in Elements.Where(item => DisplayElementOptional(item)))
                 {
-                    @TableItemTemplate(element)
+                    <tr>
+                        @TableRowTemplate(element)
+                    </tr>
                 }
             </ContentTemplate>
         </RoomResClient.UI.Components.GenericList>
@@ -27,7 +29,7 @@
     public RenderFragment TableHeaderTemplate { get; set; }
 
     [Parameter]
-    public RenderFragment<TElement> TableItemTemplate { get; set; }
+    public RenderFragment<TElement> TableRowTemplate { get; set; }
 
     [Parameter]
     public Predicate<TElement> DisplayElement { get; set; }

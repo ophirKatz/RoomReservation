@@ -20,27 +20,25 @@
                 <th scope="col">מכסה</th>
             </tr>
         </TableHeaderTemplate>
-        <TableItemTemplate Context="room">
-            <tr>
-                <ContextMenuTrigger MenuId="roomReservationMenu" Data="room">
-                    <td>
-                        @room.Description
-                    </td>
-                    <td>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item active" aria-current="page">@room.Location.Building</li>
-                                <li class="breadcrumb-item active" aria-current="page">@room.Location.Floor</li>
-                                <li class="breadcrumb-item active" aria-current="page">@room.Location.Number</li>
-                            </ol>
-                        </nav>
-                    </td>
-                    <td>
-                        <span class="badge badge-light .octicon-organization">@room.Capacity</span>
-                    </td>
-                </ContextMenuTrigger>
-            </tr>
-        </TableItemTemplate>
+        <TableRowTemplate Context="room">
+            <ContextMenuTrigger MenuId="roomReservationMenu" Data="room">
+                <td>
+                    @room.Description
+                </td>
+                <td>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Building</li>
+                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Floor</li>
+                            <li class="breadcrumb-item active" aria-current="page">@room.Location.Number</li>
+                        </ol>
+                    </nav>
+                </td>
+                <td>
+                    <span class="badge badge-light .octicon-organization">@room.Capacity</span>
+                </td>
+            </ContextMenuTrigger>
+        </TableRowTemplate>
     </RoomResClient.UI.Components.FilterableTable>
 </div>
 

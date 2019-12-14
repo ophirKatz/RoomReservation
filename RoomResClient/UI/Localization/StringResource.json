@@ -7,7 +7,12 @@
     // Users Table
     "Users": "משתמשים",
     "Username": "שם משתמש",
-    "UserClearance": "סיווג"
+    "UserClearance": "סיווג",
+
+    // Clearance
+    "Basic":  "בסיסי",
+    "Advanced":  "מתקדם",
+    "Admin":  "אדמין"
   },
   "Styles": {
     "Success": "success",
