@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Server.Hubs;
-using Server.Modules;
+using Server.Server;
 using System.Reflection;
 
-namespace Server.Server
+namespace Server
 {
     public class Startup
     {
@@ -30,10 +30,6 @@ namespace Server.Server
         {
             #region Register Modules
 
-            /* builder.RegisterModule<ServiceModule>();
-            builder.RegisterModule<DtoModule>();
-            builder.RegisterModule<ConfigurationModule>();
-            builder.RegisterModule<ModelModule>(); */
             builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
 
             #endregion
