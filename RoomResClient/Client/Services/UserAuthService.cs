@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.SignalR.Client;
 using Serilog;
@@ -17,12 +18,12 @@ namespace RoomResClient.Client.Services
         public UserAuthService(HubConnection connection,
             ILogger logger,
             AuthenticationStateProvider authenticationStateProvider,
-            IAuthorizationService authorizationService)
+            ILocalStorageService localStorageService)
         {
             Connection = connection;
             Logger = logger;
             AuthenticationStateProvider = authenticationStateProvider;
-            AuthorizationService = authorizationService;
+            LocalStorageService = localStorageService;
         }
 
         #endregion
@@ -52,11 +53,13 @@ namespace RoomResClient.Client.Services
                 var result = await Connection.InvokeAsync<LoginResult>(nameof(IAuthHub.Login), loginData)
                     .ConfigureAwait(false);
 
-                if (result.Result == Shared.Enums.AuthResult.Success)
+                if (result.Result != Shared.Enums.AuthResult.Success)
                 {
-                    ((UserAuthenticationStateProvider)AuthenticationStateProvider).AuthenticateUser(loginData.Username);
                     return result;
                 }
+
+                ((UserAuthenticationStateProvider)AuthenticationStateProvider).AuthenticateUser(loginData.Username);
+                await LocalStorageService.SetItemAsync(Data.Consts.AuthToken, result.Token);
 
                 return result;
             }
@@ -71,8 +74,8 @@ namespace RoomResClient.Client.Services
 
         public async Task Logout()
         {
+            await LocalStorageService.RemoveItemAsync(Data.Consts.AuthToken);
             ((UserAuthenticationStateProvider)AuthenticationStateProvider).LogoutUser();
-            await Task.CompletedTask;   // TODO : this method will evantualy be async
         }
 
         #endregion
@@ -82,7 +85,7 @@ namespace RoomResClient.Client.Services
         private HubConnection Connection { get; }
         private ILogger Logger { get; }
         private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-        private IAuthorizationService AuthorizationService { get; }
+        public ILocalStorageService LocalStorageService { get; }
 
         #endregion
     }

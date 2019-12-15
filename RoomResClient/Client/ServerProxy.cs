@@ -19,7 +19,7 @@ namespace RoomResClient.Client
             // Configure your client connection with all interface methods with this extension method
             client.ConfigureConnection(Connection);
             Logger = logger;
-            Connection.StartAsync().Wait();
+            // Connection.StartAsync().Wait();
 
             Logger.Information("Started connection with server");
         }

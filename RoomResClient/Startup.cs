@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Blazored.LocalStorage;
 using Blazored.Modal;
 using Blazored.Toast;
 using MatBlazor;
@@ -11,8 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RoomResClient.Client;
 using RoomResClient.Configuration;
-using RoomResClient.Extensions;
-using RoomResClient.Modules;
 using Serilog;
 using Shared.Communication;
 
@@ -44,6 +43,7 @@ namespace RoomResClient
             services.AddServerSideBlazor();
             services.AddSignalR();
             services.AddAuthorizationCore();
+            services.AddBlazoredLocalStorage();
             AddUiServices();
 
             void AddUiServices()

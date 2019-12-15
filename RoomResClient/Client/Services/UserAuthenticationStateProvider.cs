@@ -1,28 +1,49 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-using System.Security.Claims;
+﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using System.Threading.Tasks;
 
 namespace RoomResClient.Client.Services
 {
     public class UserAuthenticationStateProvider : AuthenticationStateProvider
     {
+        #region Constructor
+
+        public UserAuthenticationStateProvider(ILocalStorageService localStorageService)
+        {
+            LocalStorageService = localStorageService;
+        }
+
+        #endregion
+
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            return await Task.FromResult(new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity())));
+            var savedToken = await LocalStorageService.GetItemAsync<string>(Data.Consts.AuthToken)
+                .ConfigureAwait(false);
+
+            if (string.IsNullOrWhiteSpace(savedToken))
+            {
+                return AuthenticationStateBuilder.Empty;
+            }
+
+            return AuthenticationStateBuilder.FromJwt(savedToken);
         }
 
         public void AuthenticateUser(string username)
         {
-            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) }, "apiauth"));
-            var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
+            var authState = Task.FromResult(AuthenticationStateBuilder.FromUsername(username));
             NotifyAuthenticationStateChanged(authState);
         }
 
         public void LogoutUser()
         {
-            var anonymousUser = new ClaimsPrincipal(new ClaimsIdentity());
-            var authState = Task.FromResult(new AuthenticationState(anonymousUser));
+            var authState = Task.FromResult(AuthenticationStateBuilder.Empty);
             NotifyAuthenticationStateChanged(authState);
         }
+
+        #region Private Members
+
+        private ILocalStorageService LocalStorageService { get; }
+
+        #endregion
     }
 }
