@@ -10,8 +10,8 @@ namespace Server.Modules
         protected override void Load(ContainerBuilder builder)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            builder.RegisterAllBySuffix(assembly, "Service");
-            builder.RegisterAllBySuffix(assembly, "Converter");
+            builder.RegisterAllBySuffixSingleInstance(assembly, "Service");
+            builder.RegisterAllBySuffixSingleInstance(assembly, "Converter");
             builder.RegisterType<RoomReservationsContainer>().As<IRoomReservationsContainer>().SingleInstance();
         }
     }

@@ -1,47 +1,22 @@
 ﻿@page "/"
-@using Shared.Dto
-@inject IServerProxy ServerProxy
-@inject IToastService ToastService
 
-<table class="table">
-    <tbody>
-        <tr>
-            <td>
-                <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h1>Hello, World!</h1>
-
-                Welcome to your new app.
-                <RoomResClient.UI.Components.Alert Type=@Data.AlertType.Error />
-                <RoomResClient.UI.Components.Alert Type=@Data.AlertType.Info />
-                <RoomResClient.UI.Components.Alert Type=@Data.AlertType.Success />
-                <RoomResClient.UI.Components.Alert Type=@Data.AlertType.Warning />
-                <RoomResClient.UI.Components.TimedToast Message="Hello" />
-                <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
-            </td>
-            <td>
-                <RoomResClient.UI.DomainComponents.RoomsListView />
-                <RoomResClient.UI.DomainComponents.UsersListView />
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="container p-5">
+            <div class="row">
+                <div class="col-8">
+                    <p>Other content for the index page will be dislayed here</p>
+                </div>
+                <div class="col-4 p-2 m-2">
+                    <RoomResClient.UI.Pages.Auth.Login />
+                </div>
+            </div>
+        </div>
+    </NotAuthorized>
+    <Authorized>
+        @*Figure out what to display here when authorized*@
+    </Authorized>
+</AuthorizeView>
 
 @code {
-    protected override async Task OnInitializedAsync()
-    {
-        await Task.Delay(2000);
-    }
-
-    private async Task Get()
-    {
-        Users = await ServerProxy.GetAllUsers();
-    }
-
-    private List<UserDto> Users { get; set; }
-    private IEnumerable<int> NumArray { get; set; }
 }

@@ -1,8 +1,7 @@
 ﻿<Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <MatToastContainer />
-        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(RoomResClient.UI.Layout.MainLayout)">
-        </AuthorizeRouteView>
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(RoomResClient.UI.Layout.MainLayout)" />
     </Found>
     <NotFound>
         <CascadingAuthenticationState>

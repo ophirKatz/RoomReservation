@@ -1,0 +1,21 @@
+﻿@page "/home"
+
+@inject NavigationManager NavigationManager
+
+<AuthorizeView>
+    <Authorized>
+        <div class="container">
+            <RoomResClient.UI.DomainComponents.RoomsListView />
+            <RoomResClient.UI.DomainComponents.UsersListView />
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <p>יש להתחבר על מנת לקבל גישה</p>
+        <MatButton Outlined="true"
+                   OnClick="@(() => NavigationManager.NavigateTo(Routes.Index))">התחבר</MatButton>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}

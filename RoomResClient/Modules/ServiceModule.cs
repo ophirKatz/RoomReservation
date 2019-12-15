@@ -8,8 +8,8 @@ namespace RoomResClient.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<UserAuthenticationStateProvider>().As<AuthenticationStateProvider>();
-            builder.RegisterType<UserAuthService>().As<IUserAuthService>();
+            builder.RegisterType<UserAuthenticationStateProvider>().As<AuthenticationStateProvider>().SingleInstance();
+            builder.RegisterType<UserAuthService>().As<IUserAuthService>().SingleInstance();
         }
     }
 }
