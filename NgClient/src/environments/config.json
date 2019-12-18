@@ -1,0 +1,7 @@
+{
+	"ServerConnectionConfiguration": {
+    "ServerAddress": "localhost",
+    "ServerPort": 8080,
+    "ServerHubName": "RoomReservationHub"
+  }
+}
