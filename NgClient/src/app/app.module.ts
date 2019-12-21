@@ -1,6 +1,5 @@
-import { ServerConnectionConfiguration } from './configuration/ServerConnectionConfiguration';
-import { ServerProxyService } from './services/server-proxy.service';
-import { ConfigureApplication } from './configuration/ConfigureApplication';
+import { HttpClientModule } from '@angular/common/http'; 
+import { ConfigurationProvider } from './configuration/config.provider';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 
@@ -12,10 +11,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 
 // Services & Service Providers
-import { serverProxyProvider } from './services/service-providers';
+import { serverProxyProvider, userAuthServiceProvider } from './services/service-providers';
+import { HubConnection } from '@aspnet/signalr';
 
 // Configuration
-export function initializeApp(appConfigurator: ConfigureApplication) {
+export function initializeApp(appConfigurator: ConfigurationProvider) {
   return () => appConfigurator.configure();
 }
 
@@ -28,13 +28,23 @@ export function initializeApp(appConfigurator: ConfigureApplication) {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
-    { provide: APP_INITIALIZER,
+    ConfigurationProvider,
+    {
+      provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [ConfigureApplication], multi: true },
-    serverProxyProvider
+      deps: [ConfigurationProvider],
+      multi: true
+    },
+    {
+      provide: HubConnection,
+      useFactory: () => ConfigurationProvider.hubConnection
+    },
+    serverProxyProvider,
+    userAuthServiceProvider
   ],
   bootstrap: [AppComponent]
 })

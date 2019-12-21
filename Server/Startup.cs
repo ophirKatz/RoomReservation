@@ -20,6 +20,16 @@ namespace Server
             // won't get called.
             services.AddSignalR();
             services.AddDbContext<ServerDbContext>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowLocalHostOrigin, builder =>
+                {
+                    builder.WithOrigins(new [] {"http://localhost:4200"})
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
         }
 
         // ConfigureContainer is where you can register things directly
@@ -56,11 +66,18 @@ namespace Server
         // here if you need to resolve things from the container.
         public void Configure(IApplicationBuilder app)
         {
+            app.UseCors(AllowLocalHostOrigin);
             app.UseRouting();
             app.UseEndpoints(routeBuilder =>
             {
                 routeBuilder.MapHub<RoomReservationHub>($"/{nameof(RoomReservationHub)}");
             });
         }
+
+        #region Private Members
+
+        private const string AllowLocalHostOrigin = "AllowLocalHostOrigin";
+
+        #endregion
     }
 }

@@ -1,0 +1,5 @@
+{
+	"ServerConnectionConfiguration": {
+    "ApiEndpoint": "http://localhost:8080/RoomReservationHub"
+  }
+}

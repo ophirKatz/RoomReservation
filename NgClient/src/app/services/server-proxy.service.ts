@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
-import { ServerConnectionConfiguration } from '../configuration/ServerConnectionConfiguration';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ServerProxyService {
-  //#region Constructor
+	//#region Constructor
 
-  constructor(private serverConnectionConfiguration: ServerConnectionConfiguration) {
-    const serverApiUrl = `http://${serverConnectionConfiguration.ServerAddress}:
-      ${serverConnectionConfiguration.ServerPort}/${serverConnectionConfiguration.ServerHubName}`;
-    const connection = new signalR.HubConnectionBuilder()
-      .configureLogging(signalR.LogLevel.Information)
-      .withUrl(serverApiUrl)
-      .build();
+	constructor(private hubConnection: signalR.HubConnection) {}
 
-    connection.start()
-      .then(() => console.log('SignalR Connected!'))
-      .catch(err => console.error(err.toString()));
-  }
+	//#endregion
 
-  //#endregion
+	//#region Server Requests
+
+
+
+	//#endregion
+
+	//#region Listeners
+
+	//#endregion
 }
