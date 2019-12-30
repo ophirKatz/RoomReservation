@@ -3,3 +3,9 @@ export interface LoginData {
 	password: string;
 	rememberMe: boolean;
 }
+
+export const DefaultLoginData = <LoginData> {
+	username: '',
+	password: '',
+  rememberMe: false
+};

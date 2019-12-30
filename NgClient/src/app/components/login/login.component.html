@@ -1,0 +1,19 @@
+<div class="main container float-right">
+  <div class="row">
+    <div class="col-sm-2 border">
+			<div class="login-form">
+				<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+					<div class="form-group">
+						 <label class="float-right">שם משתמש</label>
+						 <input type="text" class="form-control" placeholder="שם משתמש" formControlName="username">
+					</div>
+					<div class="form-group float-right">
+						 <label class="float-right">סיסמה</label>
+						 <input type="password" class="form-control float-right" placeholder="סיסמה" formControlName="password">
+					</div>
+					<button type="submit" class="btn btn-black mr-2 float-right">התחבר</button>
+			 </form>
+			</div>
+    </div>
+  </div>
+</div>

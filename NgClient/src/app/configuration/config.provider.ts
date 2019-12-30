@@ -9,7 +9,7 @@ export class ConfigurationProvider {
 	public static serverConnectionConfiguration: ServerConnectionConfiguration;
 	public static hubConnection: signalR.HubConnection;
 
-	constructor(private http: HttpClient) {
+	public constructor(private http: HttpClient) {
 
 	}
 

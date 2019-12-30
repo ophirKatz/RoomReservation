@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="container" *ngIf="rooms; else noRooms">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Description</th>
+					<th scope="col">Location</th>
+					<th scope="col">Capacity</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let room of rooms; let i = index">
+					<th scope="row">{{i + 1}}</th>
+					<td>{{room.description}}</td>
+					<td>
+						<img src="assets/images/building.svg" alt="" width="18" height="18" title="Building"> {{room.location.building}} /
+						<img src="assets/images/list-ol.svg" alt="" width="18" height="18" title="Floor"> {{room.location.floor}} /
+						<img src="assets/images/hash.svg" alt="" width="18" height="18" title="Number"> {{room.location.number}}
+					</td>
+					<td>{{room.capacity}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<ng-template #noRooms>There are no rooms in the database...</ng-template>
+</div>

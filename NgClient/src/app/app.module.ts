@@ -1,18 +1,23 @@
+// Modules
 import { HttpClientModule } from '@angular/common/http'; 
-import { ConfigurationProvider } from './configuration/config.provider';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 
 // Services & Service Providers
-import { serverProxyProvider, userAuthServiceProvider } from './services/service-providers';
+import { ConfigurationProvider } from './configuration/config.provider';
 import { HubConnection } from '@aspnet/signalr';
+import { IndexComponent } from './pages/index/index.component';
+import { NavbarComponent } from './pages/home/navbar/navbar.component';
+import { MenuComponent } from './pages/home/menu/menu.component';
+import { RoomsComponent } from './components/rooms/rooms.component';
 
 // Configuration
 export function initializeApp(appConfigurator: ConfigurationProvider) {
@@ -24,12 +29,18 @@ export function initializeApp(appConfigurator: ConfigurationProvider) {
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    IndexComponent,
+    NavbarComponent,
+    MenuComponent,
+    RoomsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ConfigurationProvider,
@@ -42,9 +53,7 @@ export function initializeApp(appConfigurator: ConfigurationProvider) {
     {
       provide: HubConnection,
       useFactory: () => ConfigurationProvider.hubConnection
-    },
-    serverProxyProvider,
-    userAuthServiceProvider
+    }
   ],
   bootstrap: [AppComponent]
 })
