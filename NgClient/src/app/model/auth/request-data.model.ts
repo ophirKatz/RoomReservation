@@ -4,6 +4,12 @@ export interface LoginData {
 	rememberMe: boolean;
 }
 
+export interface RegisterData {
+	username: string;
+	password: string;
+	confirmPassword: string;
+}
+
 export const DefaultLoginData = <LoginData> {
 	username: '',
 	password: '',

@@ -1,11 +1,9 @@
 import { AuthResult } from '../../common/enums/auth-result';
 import { HubMethods } from '../../model/hub-methods';
-import { RegisterResult } from './../../model/auth/Response/RegisterResult';
-import { RegisterData } from './../../model/auth/Request/RegisterData';
-import { LoginResult } from './../../model/auth/Response/LoginResult';
-import { LoginData } from './../../model/auth/Request/LoginData';
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
+import { RegisterResult, LoginResult } from 'src/app/model/auth/response-data.model';
+import { RegisterData, LoginData } from 'src/app/model/auth/request-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +13,7 @@ export class UserAuthService {
   constructor(private hubConnection: signalR.HubConnection) {}
 
   public async register(registerData: RegisterData): Promise<RegisterResult> {
-    return this.hubConnection.invoke(HubMethods.register, registerData)
+    return await this.hubConnection.invoke(HubMethods.register, registerData)
       .then((registerResult: RegisterResult) => registerResult)
       .catch(error => {
         console.log(`Error with registering user ${registerData.username}: ${error}`);
@@ -24,7 +22,7 @@ export class UserAuthService {
   }
 
   public async login(loginData: LoginData): Promise<LoginResult> {
-    return this.hubConnection.invoke(HubMethods.login, loginData)
+    return await this.hubConnection.invoke(HubMethods.login, loginData)
       .then((loginResult: LoginResult) => {
         if (loginResult == null || loginResult.authResult !== AuthResult.Success) {
           return loginResult;

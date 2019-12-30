@@ -1,8 +1,7 @@
-import { LoginData, DefaultLoginData } from '../../model/auth/Request/LoginData';
-import { LoginResult } from '../../model/auth/Response/LoginResult';
 import { UserAuthService } from '../../services/authentication/user-auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DefaultLoginData, LoginData } from 'src/app/model/auth/request-data.model';
 
 @Component({
   selector: 'app-login',
