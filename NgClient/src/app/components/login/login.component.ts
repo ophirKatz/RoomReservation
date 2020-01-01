@@ -9,7 +9,6 @@ import { DefaultLoginData, LoginData } from 'src/app/model/auth/request-data.mod
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   public constructor(private formBuilder: FormBuilder,
     private userAuthService: UserAuthService) {
     this.loginForm = this.formBuilder.group(DefaultLoginData);

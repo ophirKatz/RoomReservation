@@ -6,12 +6,17 @@ import * as signalR from '@aspnet/signalr';
 
 @Injectable()
 export class ConfigurationProvider {
-	public static serverConnectionConfiguration: ServerConnectionConfiguration;
-	public static hubConnection: signalR.HubConnection;
+	//#region Factory & Constructor
+	
+	public static appConfigurator(appConfigurator: ConfigurationProvider): () => Promise<void> {
+		return () => appConfigurator.configure();
+	}
 
 	public constructor(private http: HttpClient) {
 
 	}
+
+	//#endregion
 
 	public async configure(): Promise<void> {
 		const jsonFile = './assets/config/config.json';
@@ -41,4 +46,11 @@ export class ConfigurationProvider {
 			.catch(err => console.error(err.toString()));
 		ConfigurationProvider.hubConnection = connection;
 	}
+
+	//#region Configurables
+
+	public static serverConnectionConfiguration: ServerConnectionConfiguration;
+	public static hubConnection: signalR.HubConnection;
+
+	//#endregion
 }

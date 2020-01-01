@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2 border">
+			<div class="login-form">
+				<form [formGroup]="reservationForm" (ngSubmit)="onSubmit(reservationForm.value)">
+					<div class="form-group">
+						 <label>Room</label>
+						 <input type="text" class="form-control" formControlName="roomDescription" readonly>
+					</div>
+					<div class="form-group">
+						<label>Start time</label>
+						<input type="text" class="form-control" formControlName="startTime">
+					</div>
+					<div class="form-group">
+						<label>End time</label>
+						<input [matDatepicker]="myDatepicker">
+						<mat-datepicker #myDatepicker></mat-datepicker>
+			 		</div>
+					<button type="submit" class="btn btn-black mr-2">התחבר</button>
+			 </form>
+			</div>
+    </div>
+  </div>
+</div>

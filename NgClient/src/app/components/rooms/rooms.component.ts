@@ -11,14 +11,20 @@ import { RoomDto } from 'src/app/common/dto/room.dto';
 export class RoomsComponent implements OnInit {
   public constructor(private roomService: RoomService) { }
 
-  public ngOnInit() {
+  public async ngOnInit() {
     this.roomService.fetchRoomsAsync()
       .then((roomDtos: RoomDto[]) => this.setRoomsFromDtos(roomDtos));
   }
 
-  private setRoomsFromDtos(roomDtos: RoomDto[]): void {
+  private async setRoomsFromDtos(roomDtos: RoomDto[]) {
     this.rooms = roomDtos.map(roomDto => new Room(roomDto));
   }
 
+  private chooseRoom(room: Room): void {
+    console.log(`chose room ${room.description}`);
+    this.chosenRoom = room;
+  }
+
+  private chosenRoom: Room;
   private rooms: Room[];
 }

@@ -12,7 +12,7 @@ namespace Shared.Dto
         {
         }
 
-        public ReservationDto(int id, DateTime startTime, DateTime endTime, RoomDto room, UserDto userModel, UserClearance requiredClearance)
+        public ReservationDto(int id, DateTime startTime, DateTime endTime, RoomDto room, UserDto userDto, UserClearance requiredClearance)
         {
             Id = id;
             Details = new ReservationDetails
@@ -22,7 +22,7 @@ namespace Shared.Dto
                 RequiredClearance = requiredClearance
             };
             Room = room;
-            Initiator = userModel;
+            Initiator = userDto;
         }
 
         #endregion

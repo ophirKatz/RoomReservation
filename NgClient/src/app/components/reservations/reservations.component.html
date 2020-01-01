@@ -1,16 +1,17 @@
 <div class="container">
-	<div class="container" *ngIf="rooms; else noRooms">
+	<div class="container" *ngIf="reservations; else noReservations">
 		<table class="table">
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Description</th>
-					<th scope="col">Location</th>
-					<th scope="col">Capacity</th>
+					<th scope="col">Room</th>
+					<th scope="col">From</th>
+					<th scope="col">To</th>
+					<th scope="col">Required Clearance</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="list-group-item-action" *ngFor="let room of rooms; let i = index" (click)="chooseRoom(room)">
+				<tr *ngFor="let reservation of reservations; let i = index">
 					<th scope="row">{{i + 1}}</th>
 					<td>{{room.description}}</td>
 					<td>
