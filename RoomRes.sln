@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFiller", "DbFiller\DbFiller.csproj", "{66E8DA63-2260-45B1-8415-5B32B04CEBFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{7A4A5158-71ED-44E6-9D0F-226793AE5CF8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{66E8DA63-2260-45B1-8415-5B32B04CEBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66E8DA63-2260-45B1-8415-5B32B04CEBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66E8DA63-2260-45B1-8415-5B32B04CEBFC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A4A5158-71ED-44E6-9D0F-226793AE5CF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A4A5158-71ED-44E6-9D0F-226793AE5CF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A4A5158-71ED-44E6-9D0F-226793AE5CF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A4A5158-71ED-44E6-9D0F-226793AE5CF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
