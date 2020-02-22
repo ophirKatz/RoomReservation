@@ -5,6 +5,9 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +25,7 @@ import { ReservationActionComponent } from './components/reservation-action/rese
 // Services & Providers
 import { ConfigurationProvider } from './configuration/config.provider';
 import { HubConnection } from '@aspnet/signalr';
-import { MatNativeDateModule } from '@angular/material/core';
+import { RoomViewComponent } from './components/rooms/room-view/room-view.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MenuComponent,
     RoomsComponent,
     ReservationsComponent,
-    ReservationActionComponent
+    ReservationActionComponent,
+    RoomViewComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     NoopAnimationsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatMomentDateModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [
     ConfigurationProvider,
@@ -62,4 +68,4 @@ import { MatNativeDateModule } from '@angular/material/core';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

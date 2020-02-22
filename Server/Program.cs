@@ -22,7 +22,7 @@ namespace Server
             host.Run();
 
             static void ServerHostConfiguration(IWebHostBuilder webHostBuilder)
-            {
+            { 
                 webHostBuilder
                     .UseUrls(Configuration.ServerAddress)
                     .UseStartup<Startup>();

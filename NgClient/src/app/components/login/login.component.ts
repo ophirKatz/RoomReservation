@@ -1,7 +1,7 @@
 import { UserAuthService } from '../../services/authentication/user-auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DefaultLoginData, LoginData } from 'src/app/model/auth/request-data.model';
+import { LoginData } from 'src/app/model/auth/request-data.model';
 
 @Component({
   selector: 'app-login',
@@ -9,12 +9,13 @@ import { DefaultLoginData, LoginData } from 'src/app/model/auth/request-data.mod
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
   public constructor(private formBuilder: FormBuilder,
     private userAuthService: UserAuthService) {
-    this.loginForm = this.formBuilder.group(DefaultLoginData);
   }
-
+    
   public ngOnInit() {
+      this.loginForm = this.formBuilder.group(LoginComponent.DefaultLoginData);
   }
 
   private onSubmit(formData: LoginData): void {
@@ -30,4 +31,10 @@ export class LoginComponent implements OnInit {
   }
 
   private loginForm: FormGroup;
+
+  private static DefaultLoginData = <LoginData> {
+    username: '',
+    password: '',
+    rememberMe: false
+  };
 }

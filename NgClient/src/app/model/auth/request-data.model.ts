@@ -9,9 +9,3 @@ export interface RegisterData {
 	password: string;
 	confirmPassword: string;
 }
-
-export const DefaultLoginData = <LoginData> {
-	username: '',
-	password: '',
-  rememberMe: false
-};

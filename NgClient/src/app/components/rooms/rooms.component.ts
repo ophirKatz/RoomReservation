@@ -17,6 +17,10 @@ export class RoomsComponent implements OnInit {
   }
 
   private async setRoomsFromDtos(roomDtos: RoomDto[]) {
+    if (roomDtos === null || roomDtos.length === 0) {
+      this.rooms = [];
+      return;
+    }
     this.rooms = roomDtos.map(roomDto => new Room(roomDto));
   }
 
